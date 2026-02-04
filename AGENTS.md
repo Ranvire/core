@@ -3,6 +3,12 @@
 ## Purpose
 This repository is maintained with help from automated agents (Codex). This document defines non-negotiable constraints, upgrade policy, and the expected workflow so changes remain incremental and reviewable.
 
+## Engine-specific stricture: freeze the export surface
+During the Node LTS uplift:
+- Do **not** modify `index.js` (the entrypoint) or its export strategy.
+- Do **not** add an `exports` map, change `main`, or restructure how modules are exposed.
+- Treat the current `require-dir('./src/')` behavior as a compatibility contract for downstream repos.
+
 ## High-level goals
 - Keep the project runnable and maintainable on modern Node LTS.
 - Prefer small, reversible changes over rewrites.
