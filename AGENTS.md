@@ -9,6 +9,12 @@ During the Node LTS uplift:
 - Do **not** add an `exports` map, change `main`, or restructure how modules are exposed.
 - Treat the current `require-dir('./src/')` behavior as a compatibility contract for downstream repos.
 
+## Lockfile policy (mandatory early step)
+- The existing `package-lock.json` (lockfile v1) must be upgraded to **lockfile v3** intentionally.
+- Perform this upgrade in a **dedicated commit** with no other changes.
+- After the upgrade, CI must use `npm ci` and must not rewrite the lockfile.
+- Do not attempt Node LTS or dependency upgrades until the lockfile v3 baseline is established.
+
 ## High-level goals
 - Keep the project runnable and maintainable on modern Node LTS.
 - Prefer small, reversible changes over rewrites.
