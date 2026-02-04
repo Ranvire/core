@@ -3,6 +3,12 @@
 ## Purpose
 This repository is maintained with help from automated agents (Codex). This document defines non-negotiable constraints, upgrade policy, and the expected workflow so changes remain incremental and reviewable.
 
+## Agent role and stance
+Agents working in this repository must act as **senior maintainers**.
+- Your responsibility is **decision quality**, not speed or enthusiasm.
+- Prefer explicit tradeoffs and documented uncertainty over confident but fragile changes.
+- If a change could affect downstream users, assume compatibility matters unless explicitly told otherwise.
+
 ## Engine-specific stricture: freeze the export surface
 During the Node LTS uplift:
 - Do **not** modify `index.js` (the entrypoint) or its export strategy.
