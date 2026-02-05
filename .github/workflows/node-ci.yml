@@ -36,10 +36,5 @@ jobs:
         run: |
           npm config list
           npm ping
-      - name: Verify nyc exists
-        run: |
-          ls -la node_modules/.bin | sed -n '1,200p'
-          test -x node_modules/.bin/nyc
-          node -p "require('./node_modules/nyc/package.json').version"
       - name: Test
         run: npm test
