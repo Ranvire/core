@@ -27,13 +27,7 @@ jobs:
           node -v
           npm -v
           echo "NODE_ENV=$NODE_ENV"
-          npm config get production
           npm config get omit
-          npm config list
-      - name: Ensure devDependencies are installed
-        run: |
-          npm config set production false
-          npm config list
       - name: Install dependencies
         run: |
           npm ci --include=dev --no-audit --no-fund
