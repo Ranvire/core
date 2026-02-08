@@ -8,7 +8,7 @@ const Logger = require('../../src/Logger');
 
 describe('BundleManager', () => {
   describe('loadQuests', () => {
-    it('swallows loader errors without logging and returns an empty list', async () => {
+    it('logs loader errors and returns an empty list', async () => {
       const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bundle-manager-'));
       const loader = {
         setBundle: () => {},
