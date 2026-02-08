@@ -29,6 +29,9 @@ This checklist is scoped to the `Ranvire/core` engine only. It focuses on a **pu
 * [ ] Audit and modernize legacy dependencies (e.g., `winston@2`, `js-yaml@3`, `wrap-ansi@2`) with compatibility tests.
 * [ ] Make `longjohn` optional and gated behind an explicit opt‑in for Node 22 safety.
 * [ ] Add non‑blocking `npm audit` reporting in CI (artifact or summary).
+* [ ] Remove `longjohn` from dependencies (divestment, not gating).
+  * Rationale: high runtime overhead, legacy async instrumentation, and ongoing compatibility risk on modern Node.
+  * Replacement is documentation of modern Node diagnostics and improved contextual error reporting (see items below).
 
 #### Packaging & Distribution
 
@@ -52,6 +55,9 @@ This checklist is scoped to the `Ranvire/core` engine only. It focuses on a **pu
 * [ ] Document supported Node versions (22 now, 18/22 during transition).
 * [ ] Document core‑only scope, extension points, and public API surface (Config, Logger, BundleManager, EntityLoader, GameServer).
 * [ ] Document sharp edges and failure modes (Config load order, BundleManager exit paths, EventManager detach behavior).
+* [ ] Establish a lightweight changelog policy for maintenance releases (record user-visible changes and dependency/security actions).
+  * Scope: dependency upgrades/removals, runtime/CI changes, compatibility-impacting fixes, and removals of debugging hooks.
+  * Format can be minimal (single `CHANGELOG.md` or “changelog entries in PR description”), but it must be consistent.
 
 ---
 
@@ -63,6 +69,27 @@ This checklist is scoped to the `Ranvire/core` engine only. It focuses on a **pu
 * [ ] Guard `Config.get` against being called before `Config.load` (clear error or safe fallback).
 * [ ] Improve error messages in `Data.saveFile`/`Data.parseFile` with full path and action context.
 * [ ] Detect missing loader registry entries (`areas`, `help`, etc.) early with explicit errors.
+* [ ] Document recommended Node diagnostics for development debugging (replace “long async stacks” approach):
+  * `--trace-uncaught`
+  * `--trace-warnings`
+  * inspector-based debugging (`node --inspect` / DevTools workflow)
+
+* [ ] Improve logging context in core error paths (no redesign):
+  * include bundle name, area name, entity type/id where available
+  * include command name and player/account identifiers where available
+  * include event name and emitter surface where available
+
+* [ ] Capture and preserve error cause chains where errors are wrapped:
+  * when rethrowing, use `new Error(message, { cause: err })` (or equivalent) to retain underlying error context
+
+* [ ] Add structured error boundaries in engine hotspots that add context and rethrow:
+  * bundle loading (BundleManager load/feature hooks)
+  * command dispatch (CommandManager execution path)
+  * event dispatch (where core invokes handlers/listeners)
+
+* [ ] Add one or two targeted tests that assert:
+  * context-enriched error wrapping preserves the original error as `cause`
+  * core does not depend on `longjohn` (and does not import it) under default execution
 
 #### DX & Maintainability
 
