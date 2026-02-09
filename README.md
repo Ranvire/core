@@ -71,7 +71,7 @@ This checklist is scoped to the `Rantamuta/core` engine only. It focuses on a **
 * [x] Log loader errors in `loadQuests` instead of swallowing them silently.
 * [x] Surface `loadQuests` loader exceptions instead of ignoring `fetchAll()` errors that can mask quest data issues.
 * [x] Validate `loadInputEvents` exports with clearer errors that identify the bundle and event name when `event` is not a function.
-* [ ] Add bundle/area/entity context to warnings for missing scripts or invalid entity data, only if trivial context addition without changing control flow. Otherwise, cross off this item.
+* [x] Add bundle/area/entity context to warnings for missing scripts or invalid entity data, only if trivial context addition without changing control flow. Otherwise, cross off this item.
 * [x] Guard `Config.get` against being called before `Config.load` (clear error or safe fallback).
 * [x] Improve error messages in `Data.saveFile`/`Data.parseFile` with full path and action context.
 
