@@ -1,3 +1,4 @@
+![Rantamuta Sand Castle](https://avatars.githubusercontent.com/u/259600333?s=200&v=4)
 # Rantamuta Engine ("`core`")
 
 Actual core engine code for [Rantamuta](https://github.com/Rantamuta) game engine which is a maintenance and stewardship fork of  [RanvierMUD](https://ranviermud.com).
