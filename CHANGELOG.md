@@ -6,7 +6,13 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
 
 No changes.
 
-## v1.0.0 — Initial Rantamuta release
+## Rantamuta v1.0.0 — Salpausselkä
+
+**The Salpausselkä Release**
+
+Salpausselkä refers to a series of prominent glacial ridges found only in Finland, formed at the end of the last Ice Age. They mark a stable boundary where movement slowed, pressure settled, and the landscape took on its lasting shape.
+
+This release serves a similar role for Rantamuta: a stable baseline where behavior is preserved, modernization is complete, and future evolution can proceed on solid ground.
 
 This release is the initial stable release of the Rantamuta core engine.
 
