@@ -14,7 +14,7 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
 - Migration/Action:
   - Ensure quest loader data is valid; handle thrown errors where bundle loading is invoked if needed.
 - References:
-  - PR: pending
+  - PR: Surface quest loader failures from BundleManager.loadQuests #21
 - Timestamp: 2026.02.09 07:38
 
 ### Data file error context
