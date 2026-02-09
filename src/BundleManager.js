@@ -272,7 +272,9 @@ class BundleManager {
     if (manifest.script) {
       const areaScriptPath = `${scriptPath}/${manifest.script}.js`;
       if (!fs.existsSync(areaScriptPath)) {
-        Logger.warn(`\t\t\t[${areaName}] has non-existent script "${manifest.script}"`);
+        Logger.warn(
+          `\t\t\t[${bundle}:${areaName}] has non-existent script "${manifest.script}"`
+        );
       }
 
       Logger.verbose(`\t\t\tLoading Area Script for [${areaName}]: ${manifest.script}`);
@@ -330,7 +332,10 @@ class BundleManager {
 
     const entities = await loader.fetchAll();
     if (!entities) {
-      Logger.warn(`\t\t\t${type} has an invalid value [${entities}]`);
+      const areaLabel = areaName || 'unknown';
+      Logger.warn(
+        `\t\t\t[${bundle}:${areaLabel}] ${type} has an invalid value [${entities}]`
+      );
       return [];
     }
 
@@ -342,7 +347,9 @@ class BundleManager {
       if (entity.script) {
         const entityScript = `${scriptPath}/${type}/${entity.script}.js`;
         if (!fs.existsSync(entityScript)) {
-          Logger.warn(`\t\t\t[${entityRef}] has non-existent script "${entity.script}"`);
+          Logger.warn(
+            `\t\t\t[${bundle}:${areaName}] [${entityRef}] has non-existent script "${entity.script}"`
+          );
         } else {
           Logger.verbose(`\t\t\tLoading Script [${entityRef}] ${entity.script}`);
           this.loadEntityScript(factory, entityRef, entityScript);

@@ -4,6 +4,20 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
 
 ## Unreleased
 
+### Bundle warning context
+
+- Summary:
+  - Bundle/area/entity context was added to warnings for missing scripts and invalid entity data.
+- Why:
+  - Improves diagnostics when bundles are misconfigured or scripts are missing.
+- Impact:
+  - No control flow change; only log message text is more specific.
+- Migration/Action:
+  - None.
+- References:
+  - PR: #28 Add bundle/area/entity context to warnings
+- Timestamp: 2026.02.09 15:18
+
 ### Input event validation errors
 
 - Summary:
