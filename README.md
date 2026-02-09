@@ -30,7 +30,7 @@ This checklist is scoped to the `Rantamuta/core` engine only. It focuses on a **
   * Rationale: high runtime overhead, legacy async instrumentation, and ongoing compatibility risk on modern Node.
   * Replacement is documentation and adoption of modern Node diagnostics and improved contextual error reporting.
   * [ ] Define when/where it is used and what behavior it provides
-  * [ ] Add one or two targeted tests that assert core does not depend on `longjohn` (and does not import it) under default execution
+  * [x] Add one or two targeted tests that assert core does not depend on `longjohn` (and does not import it) under default execution
   * [ ] Document recommended Node diagnostics for development debugging (replace “long async stacks” approach):
     * `--trace-uncaught`
     * `--trace-warnings`
