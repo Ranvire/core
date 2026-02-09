@@ -26,7 +26,7 @@ This checklist is scoped to the `Rantamuta/core` engine only. It focuses on a **
 
 #### Dependencies & Security Hygiene
 
-* [ ] `longjohn`: Remove `longjohn` from dependencies (divestment, not gating)
+* [x] `longjohn`: Remove `longjohn` from dependencies (divestment, not gating)
   * Rationale: high runtime overhead, legacy async instrumentation, and ongoing compatibility risk on modern Node.
   * Replacement is documentation and adoption of modern Node diagnostics and improved contextual error reporting.
   * [x] Define when/where it is used and what behavior it provides
