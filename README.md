@@ -33,7 +33,6 @@ This checklist is scoped to the `Rantamuta/core` engine only. It focuses on a **
 #### Dependencies & Security Hygiene
 
 * [ ] Audit and modernize legacy dependencies (e.g., `winston@2`, `js-yaml@3`, `wrap-ansi@2`) with compatibility tests.
-* [ ] Make `longjohn` optional and gated behind an explicit opt‑in for Node 22 safety.
 * [ ] Add non‑blocking `npm audit` reporting in CI (artifact or summary).
 * [ ] Remove `longjohn` from dependencies (divestment, not gating).
   * Rationale: high runtime overhead, legacy async instrumentation, and ongoing compatibility risk on modern Node.
