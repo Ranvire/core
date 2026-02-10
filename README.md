@@ -27,8 +27,6 @@ From `v1.0.0` onward, Rantamuta will evolve independently. Future releases may d
 
 ## v1.1 Task list
 
-## 1.1 Maintenance Candidates (core)
-
 These items are intentionally **post-1.0**. They remain within the Rantamuta stewardship model: no redesign, no feature work, no architectural shifts. Scope is limited to robustness, diagnostics, dependency risk reduction, and contract-locking tests.
 
 ### Runtime & Tooling
