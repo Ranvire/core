@@ -1,0 +1,115 @@
+export = Broadcast;
+/**
+ * Class used for sending text to the player. All output to the player should happen through this
+ * class.
+ */
+declare class Broadcast {
+    /**
+     * @param {Broadcastable} source Target to send the broadcast to
+     * @param {string} message
+     * @param {number|boolean} wrapWidth=false width to wrap the message to or don't wrap at all
+     * @param {boolean} useColor Whether to parse color tags in the message
+     * @param {?function(target, message): string} formatter=null Function to call to format the
+     *   message to each target
+     */
+    static at(source: Broadcastable, message?: string, wrapWidth?: number | boolean, useColor?: boolean, formatter?: ((arg0: target, arg1: string) => string) | null): void;
+    /**
+     * Broadcast.at for all except given list of players
+     * @see {@link Broadcast#at}
+     * @param {Broadcastable} source
+     * @param {string} message
+     * @param {Array<Player>} excludes
+     * @param {number|boolean} wrapWidth
+     * @param {boolean} useColor
+     * @param {function} formatter
+     */
+    static atExcept(source: Broadcastable, message: string, excludes: Array<Player>, wrapWidth: number | boolean, useColor: boolean, formatter: Function): void;
+    /**
+     * Helper wrapper around Broadcast.at to be used when you're using a formatter
+     * @see {@link Broadcast#at}
+     * @param {Broadcastable} source
+     * @param {string} message
+     * @param {function} formatter
+     * @param {number|boolean} wrapWidth
+     * @param {boolean} useColor
+     */
+    static atFormatted(source: Broadcastable, message: string, formatter: Function, wrapWidth: number | boolean, useColor: boolean): void;
+    /**
+     * `Broadcast.at` with a newline
+     * @see {@link Broadcast#at}
+     */
+    static sayAt(source: unknown, message: unknown, wrapWidth: unknown, useColor: unknown, formatter: unknown): void;
+    /**
+     * `Broadcast.atExcept` with a newline
+     * @see {@link Broadcast#atExcept}
+     */
+    static sayAtExcept(source: unknown, message: unknown, excludes: unknown, wrapWidth: unknown, useColor: unknown, formatter: unknown): void;
+    /**
+     * `Broadcast.atFormatted` with a newline
+     * @see {@link Broadcast#atFormatted}
+     */
+    static sayAtFormatted(source: unknown, message: unknown, formatter: unknown, wrapWidth: unknown, useColor: unknown): void;
+    /**
+     * Render the player's prompt including unknown extra prompts
+     * @param {Player} player
+     * @param {object} extra     extra data to avail to the prompt string interpolator
+     * @param {number} wrapWidth
+     * @param {boolean} useColor
+     */
+    static prompt(player: Player, extra: object, wrapWidth: number, useColor: boolean): void;
+    /**
+     * Generate an ASCII art progress bar
+     * @param {number} width Max width
+     * @param {number} percent Current percent
+     * @param {string} color
+     * @param {string} barChar Character to use for the current progress
+     * @param {string} fillChar Character to use for the rest
+     * @param {string} delimiters Characters to wrap the bar in
+     * @return {string}
+     */
+    static progress(width: number, percent: number, color: string, barChar?: string, fillChar?: string, delimiters?: string): string;
+    /**
+     * Center a string in the middle of a given width
+     * @param {number} width
+     * @param {string} message
+     * @param {string} color
+     * @param {?string} fillChar Character to pad with, defaults to ' '
+     * @return {string}
+     */
+    static center(width: number, message: string, color: string, fillChar?: string | null): string;
+    /**
+     * Render a line of a specific width/color
+     * @param {number} width
+     * @param {string} fillChar
+     * @param {?string} color
+     * @return {string}
+     */
+    static line(width: number, fillChar?: string, color?: string | null): string;
+    /**
+     * Wrap a message to a given width. Note: Evaluates color tags
+     * @param {string}  message
+     * @param {?number} width   Defaults to 80
+     * @return {string}
+     */
+    static wrap(message: string, width?: number | null): string;
+    /**
+     * Indent all lines of a given string by a given amount
+     * @param {string} message
+     * @param {number} indent
+     * @return {string}
+     */
+    static indent(message: string, indent: number): string;
+    /**
+     * Fix LF unpaired with CR for windows output
+     * @param {string} message
+     * @return {string}
+     * @private
+     */
+    private static _fixNewlines;
+    static isBroadcastable(source: unknown): boolean;
+}
+type Broadcastable = {
+    getBroadcastTargets: () => unknown[];
+};
+/** @typedef {{getBroadcastTargets: function(): Array}} */
+declare var Broadcastable: unknown;

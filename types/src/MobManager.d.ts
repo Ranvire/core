@@ -1,0 +1,16 @@
+export = MobManager;
+/**
+ * Keeps track of all the individual mobs in the game
+ */
+declare class MobManager {
+    mobs: Map<unknown, unknown>;
+    /**
+     * @param {Mob} mob
+     */
+    addMob(mob: Mob): void;
+    /**
+     * Completely obliterate a mob from the game, nuclear option
+     * @param {Mob} mob
+     */
+    removeMob(mob: Mob): void;
+}
