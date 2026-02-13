@@ -5,4 +5,17 @@ export = Scriptable;
  * @param {*} parentClass
  * @return {module:ScriptableFn~Scriptable}
  */
-declare function Scriptable(parentClass: unknown): unknown;
+declare function Scriptable<TBase extends Constructor<ScriptableBase>>(parentClass: TBase): TBase & Constructor<ScriptableInstance>;
+import BehaviorManager = require("./BehaviorManager");
+type Constructor<T = object> = new (...args: unknown[]) => T;
+type ScriptableBase = {
+    behaviors: Map<string, unknown>;
+    __pruned?: boolean;
+    emit(name: string, ...args: unknown[]): unknown;
+    removeAllListeners(): void;
+};
+type ScriptableInstance = {
+    hasBehavior(name: string): boolean;
+    getBehavior(name: string): unknown;
+    setupBehaviors(manager: BehaviorManager): void;
+};
