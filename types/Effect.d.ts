@@ -27,14 +27,14 @@ export = Effect;
  * @listens Effect#effectAdded
  */
 declare class Effect extends EventEmitter {
-    constructor(id: unknown, def: unknown);
-    id: unknown;
-    flags: unknown;
-    config: unknown;
+    constructor(id: string, def: EffectDefinition);
+    id: string;
+    flags: string[];
+    config: EffectConfig;
     startedAt: number;
-    paused: number;
-    modifiers: unknown;
-    state: unknown;
+    paused: number | null;
+    modifiers: EffectModifiers;
+    state: Record<string, unknown>;
     /**
      * @type {string}
      */
@@ -52,7 +52,7 @@ declare class Effect extends EventEmitter {
      * Elapsed time in milliseconds since event was activated
      * @type {number}
      */
-    get elapsed(): number;
+    get elapsed(): number | null;
     /**
      * Remaining time in seconds
      * @type {number}
@@ -98,32 +98,70 @@ declare class Effect extends EventEmitter {
      * @param {number} currentAmount
      * @return {Damage}
      */
-    modifyIncomingDamage(damage: Damage, currentAmount: number): Damage;
+    modifyIncomingDamage(damage: Damage, currentAmount: number): number;
     /**
      * @param {Damage} damage
      * @param {number} currentAmount
      * @return {Damage}
      */
-    modifyOutgoingDamage(damage: Damage, currentAmount: number): Damage;
+    modifyOutgoingDamage(damage: Damage, currentAmount: number): number;
     /**
      * Gather data to persist
      * @return {Object}
      */
-    serialize(): unknown;
+    serialize(): SerializedEffect;
     /**
      * Reinitialize from persisted data
      * @param {GameState}
      * @param {Object} data
      */
-    hydrate(state: unknown, data: unknown): void;
-    skill: unknown;
+    hydrate(state: GameState, data: SerializedEffect): void;
+    skill?: Skill;
+    target?: Character;
 }
 declare namespace Effect {
-    export { EffectModifiers };
+    export { EffectConfig, EffectDefinition, EffectModifiers, SerializedEffect };
 }
 import EventEmitter = require("node:events");
 import Damage = require("./Damage");
+import GameState = require("./GameState");
+import Skill = require("./Skill");
+import Character = require("./Character");
 /**
  * {{attributes: !Object<string,function>}}
  */
-type EffectModifiers = unknown;
+type EffectModifiers = {
+    attributes: Record<string, (current: number) => number> | ((attrName: string, current: number) => number);
+    incomingDamage: (damage: Damage, current: number) => number;
+    outgoingDamage: (damage: Damage, current: number) => number;
+};
+type EffectConfig = {
+    autoActivate: boolean;
+    description: string;
+    duration: number;
+    hidden: boolean;
+    maxStacks: number;
+    name: string;
+    persists: boolean;
+    refreshes: boolean;
+    tickInterval: boolean | number;
+    type: string;
+    unique: boolean;
+    [key: string]: unknown;
+};
+type EffectDefinition = {
+    flags?: string[];
+    config?: Partial<EffectConfig>;
+    modifiers?: Partial<EffectModifiers>;
+    state?: Record<string, unknown>;
+};
+type SerializedEffect = {
+    config: Omit<EffectConfig, "duration"> & {
+        duration: number | "inf";
+    };
+    elapsed: number | null;
+    id: string;
+    remaining: number;
+    skill?: string;
+    state: Record<string, unknown>;
+};
