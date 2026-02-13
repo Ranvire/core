@@ -4,6 +4,24 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
 
 ## Unreleased
 
+### Type declaration surface expansion
+
+- Summary:
+  - Replaced opaque `types/index.d.ts` re-export typing (`typeof import("../src/X")`) with expanded, human-readable declarations across `types/*.d.ts`.
+  - Added explicit CommonJS consumer regression checks via `tsconfig.types.json`, `types/validate.ts`, and `test/types/cjs-consumer.ts`.
+- Why:
+  - Improve downstream IntelliSense and static analysis quality, and document actual runtime API contracts in stable declarations instead of implementation-path imports.
+- Impact:
+  - TypeScript/JSDoc consumers now get concrete symbol/member types, stronger checking, and better editor navigation.
+  - Runtime JavaScript behavior and module export strategy are unchanged.
+- Migration/Action:
+  - Optional but recommended: run `npm run typecheck` in downstream consumers to validate integration against the expanded declaration surface.
+- References:
+  - PR: #41 _Upgrade types_
+  - Commit: `5a7318e`
+  - Commit series: `types: tighten unknowns in <File>.d.ts`
+- Timestamp: 2026.02.13 12:57
+
 ### Bundle load order respects config
 
 - Summary:
