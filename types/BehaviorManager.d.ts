@@ -4,13 +4,13 @@ export = BehaviorManager;
  * during Item and NPC hydrate() methods to attach events
  */
 declare class BehaviorManager {
-    behaviors: Map<unknown, unknown>;
+    behaviors: Map<string, EventManager>;
     /**
      * Get EventManager for a given behavior
      * @param {string} name
      * @return {EventManager}
      */
-    get(name: string): EventManager;
+    get(name: string): EventManager | undefined;
     /**
      * Check to see if a behavior exists
      * @param {string} name
@@ -21,6 +21,6 @@ declare class BehaviorManager {
      * @param {string}   behaviorName
      * @param {Function} listener
      */
-    addListener(behaviorName: string, event: unknown, listener: Function): void;
+    addListener(behaviorName: string, event: string, listener: (...args: unknown[]) => unknown): void;
 }
 import EventManager = require("./EventManager");
