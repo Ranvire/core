@@ -4,11 +4,10 @@ export = Attributes;
  *
  * @extends Map
  */
-declare class Attributes extends Map<unknown, unknown> {
+declare class Attributes extends Map<string, Attribute> {
     constructor();
-    constructor(entries?: readonly (readonly [unknown, unknown])[]);
-    constructor();
-    constructor(iterable?: Iterable<readonly [unknown, unknown]>);
+    constructor(entries?: readonly (readonly [string, Attribute])[]);
+    constructor(iterable?: Iterable<readonly [string, Attribute]>);
     /**
      * @param {Attribute} attribute
      */
@@ -16,7 +15,7 @@ declare class Attributes extends Map<unknown, unknown> {
     /**
      * @return {Iterator} see {@link Map#entries}
      */
-    getAttributes(): Iterator<unknown, unknown, unknown>;
+    getAttributes(): IterableIterator<[string, Attribute]>;
     /**
      * Clear all deltas for all attributes in the list
      */
@@ -25,6 +24,6 @@ declare class Attributes extends Map<unknown, unknown> {
      * Gather data that will be persisted
      * @return {Object}
      */
-    serialize(): unknown;
+    serialize(): Record<string, ReturnType<Attribute["serialize"]>>;
 }
 import { Attribute } from "./Attribute";
