@@ -9,24 +9,21 @@ declare class Data {
      * @param {string} filepath
      * @return {*} parsed contents of file
      */
-    // Parsed payload shape depends on the source file schema.
-    static parseFile(filepath: string): unknown;
+    static parseFile<T>(filepath: string): T;
     /**
      * Write data to a file
      * @param {string} filepath
      * @param {*} data
      * @param {function} callback
      */
-    // Save payloads are schema-defined by calling code.
-    static saveFile(filepath: string, data: unknown, callback?: () => void): void;
+    static saveFile<T>(filepath: string, data: T, callback?: () => void): void;
     /**
      * load/parse a data file (player/account)
      * @param {string} type
      * @param {string} id
      * @return {*}
      */
-    // Loaded payloads are schema-defined by calling code.
-    static load(type: string, id: string): unknown;
+    static load<T>(type: string, id: string): T;
     /**
      * Save data file (player/account) data to disk
      * @param {string} type
@@ -34,8 +31,7 @@ declare class Data {
      * @param {*} data
      * @param {function} callback
      */
-    // Save payloads are schema-defined by calling code.
-    static save(type: string, id: string, data: unknown, callback?: () => void): void;
+    static save<T>(type: string, id: string, data: T, callback?: () => void): void;
     /**
      * Check if a data file exists
      * @param {string} type
