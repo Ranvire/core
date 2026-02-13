@@ -147,6 +147,7 @@ type EffectConfig = {
     tickInterval: boolean | number;
     type: string;
     unique: boolean;
+    // Effect definitions can include arbitrary extension fields from bundles.
     [key: string]: unknown;
 };
 type EffectDefinition = {
