@@ -23,7 +23,7 @@ declare class EventManager {
      * @param {Object} config
      */
     // `config` is forwarded into listener binding and is intentionally open-ended.
-    attach(emitter: EventEmitter, config?: unknown): void;
+    attach(emitter: EventEmitter, config?: Record<string, unknown>): void;
     /**
      * Remove all listeners for a given emitter or only those for the given events
      * If no events are given it will remove all listeners from all events defined
@@ -38,4 +38,4 @@ declare class EventManager {
     detach(emitter: EventEmitter, events: string | Iterable<string> | null): void;
 }
 import EventEmitter = require("node:events");
-type EventListener = (...args: unknown[]) => unknown;
+type EventListener = (...args: unknown[]) => void;
