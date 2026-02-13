@@ -23,5 +23,6 @@ type DataSource = {
 type DataSourceLoaderConfig = {
     require: string;
     config?: Record<string, unknown>;
+    // Data source loader configs may carry provider-specific settings.
     [key: string]: unknown;
 };
