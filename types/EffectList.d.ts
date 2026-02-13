@@ -37,6 +37,7 @@ declare class EffectList {
      * @param {string} event
      * @param {...*}   args
      */
+    // Event payloads vary by event name.
     emit(event: string, ...args: unknown[]): void;
     /**
      * @param {Effect} effect
