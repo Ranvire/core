@@ -14,8 +14,9 @@ declare class TransportStream extends EventEmitter {
      * @param {...*} args
      * @return {*}
      */
+    // Command handlers are user-defined methods; return type is intentionally unknown.
     command(command: string, ...args: unknown[]): unknown;
-    address(): unknown;
+    address(): null;
     end(): void;
     setEncoding(): void;
     pause(): void;
@@ -25,7 +26,10 @@ declare class TransportStream extends EventEmitter {
      * Attach a socket to this stream
      * @param {*} socket
      */
-    attach(socket: unknown): void;
-    socket: unknown;
+    attach(socket: CloseListenable): void;
+    socket: CloseListenable;
 }
 import EventEmitter = require("node:events");
+type CloseListenable = {
+    on(event: "close", listener: (_: unknown) => void): unknown;
+};
