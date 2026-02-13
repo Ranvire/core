@@ -23,13 +23,13 @@ declare class Skill {
     effect: string | null;
     flags: SkillFlagValue[];
     id: string;
-    info: (...args: unknown[]) => string;
+    info: (player: Player) => string;
     initiatesCombat: boolean;
     name: string;
     options: Record<string, unknown>;
     requiresTarget: boolean;
     resource: SkillResourceCost | SkillResourceCost[] | null;
-    run: (...args: unknown[]) => unknown;
+    run: SkillRun;
     state: GameState;
     targetSelf: boolean;
     type: SkillTypeValue;
@@ -107,3 +107,4 @@ type SkillResourceCost = {
     attribute: string;
     cost: number;
 };
+type SkillRun = ((args: string, player: Player, target: Character) => boolean | void) | ((player: Player) => void);
