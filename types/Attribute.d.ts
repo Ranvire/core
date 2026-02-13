@@ -55,8 +55,8 @@ export class Attribute {
  * @property {function (...number) : number} formula
  */
 export class AttributeFormula {
-    constructor(requires: string[], fn: (this: unknown, ...args: number[]) => number);
+    constructor(requires: string[], fn: (this: Attribute, ...args: number[]) => number);
     requires: string[];
-    formula: (this: unknown, ...args: number[]) => number;
-    evaluate(attribute: unknown, ...args: number[]): number;
+    formula: (this: Attribute, ...args: number[]) => number;
+    evaluate(attribute: Attribute, ...args: number[]): number;
 }
