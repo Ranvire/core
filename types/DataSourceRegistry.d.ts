@@ -16,6 +16,7 @@ declare class DataSourceRegistry extends Map<string, DataSource> {
 }
 type DataSource = {
     name: string;
+    // Source-specific hasData signatures vary by provider.
     hasData(...args: unknown[]): boolean | Promise<boolean>;
     // Data source implementations can expose extra provider-specific methods.
     [key: string]: unknown;
