@@ -5,6 +5,7 @@ declare class GameServer extends EventEmitter {
      * @param {commander} commander
      * @fires GameServer#startup
      */
+    // Commander instance shape is provided by the embedding application.
     startup(commander: unknown): void;
     /**
      * @fires GameServer#shutdown
