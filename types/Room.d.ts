@@ -78,6 +78,7 @@ declare class Room extends GameEntity {
         roomId?: string;
         direction: string;
         inferred: boolean;
+        // Exit records can include additional area-specific fields.
         [key: string]: unknown;
     }>;
     /**
@@ -166,6 +167,7 @@ type RoomDoor = {
     lockedBy?: EntityReference;
     locked?: boolean;
     closed?: boolean;
+    // Door records can include additional area-specific fields.
     [key: string]: unknown;
 };
 type RoomExit = {
@@ -173,6 +175,7 @@ type RoomExit = {
     roomId?: string;
     direction: string;
     inferred?: boolean;
+    // Exit records can include additional area-specific fields.
     [key: string]: unknown;
 };
 type RoomDefinition = {
