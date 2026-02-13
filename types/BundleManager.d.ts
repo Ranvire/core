@@ -6,13 +6,13 @@ declare class BundleManager {
     /**
      * @param {GameState} state
      */
-    constructor(path: unknown, state: GameState);
+    constructor(path: string, state: GameState);
     state: GameState;
-    bundlesPath: unknown;
-    areas: unknown[];
-    loaderRegistry: unknown;
+    bundlesPath: string;
+    areas: string[];
+    loaderRegistry: EntityLoaderRegistry;
     strictMode: boolean;
-    bundleRegistrations: Map<unknown, unknown>;
+    bundleRegistrations: Map<string, Map<string, BundleRegistration>>;
     /**
      * Load in all bundles
      */
@@ -22,8 +22,8 @@ declare class BundleManager {
      * @param {string} bundlePath Path to bundle directory
      */
     loadBundle(bundle: string, bundlePath: string): Promise<void>;
-    loadQuestGoals(bundle: unknown, goalsDir: unknown): void;
-    loadQuestRewards(bundle: unknown, rewardsDir: unknown): void;
+    loadQuestGoals(bundle: string, goalsDir: string): void;
+    loadQuestRewards(bundle: string, rewardsDir: string): void;
     /**
      * Load attribute definitions
      * @param {string} bundle
@@ -39,13 +39,13 @@ declare class BundleManager {
     /**
     * @param {string} bundle
     */
-    loadAreas(bundle: string): Promise<unknown[]>;
+    loadAreas(bundle: string): Promise<void | []>;
     /**
      * @param {string} bundle
      * @param {string} areaName
      * @param {string} areaPath
      */
-    loadArea(bundle: string, areaName: string, manifest: unknown): Promise<void>;
+    loadArea(bundle: string, areaName: string, manifest: AreaManifest): Promise<void>;
     /**
      * Load an entity (item/npc/room) from file
      * @param {string} bundle
@@ -66,7 +66,7 @@ declare class BundleManager {
      * @param {string} questsFile
      * @return {Promise<Array<entityReference>>}
      */
-    loadQuests(bundle: unknown, areaName: string): Promise<Array<entityReference>>;
+    loadQuests(bundle: string, areaName: string): Promise<Array<entityReference>>;
     /**
      * @param {string} bundle
      * @param {string} commandsDir
@@ -129,10 +129,21 @@ declare class BundleManager {
      * @return {string}
      */
     private _getAreaScriptPath;
-    _registerOrThrow(registry: unknown, key: unknown, bundle: unknown, source?: unknown): void;
+    _registerOrThrow(registry: string, key: string, bundle: string, source?: string | null): void;
 }
 import Command = require("./Command");
 import EntityFactory = require("./EntityFactory");
-type EntityReference = unknown;
+import EntityLoaderRegistry = require("./EntityLoaderRegistry");
+type EntityReference = string;
 import GameState = require("./GameState");
-type entityReference = unknown;
+type entityReference = string;
+type AreaManifest = {
+    title: string;
+    metadata?: Record<string, unknown>;
+    script?: string | null;
+    behaviors?: Record<string, unknown>;
+};
+type BundleRegistration = {
+    bundle: string;
+    source: string | null;
+};
