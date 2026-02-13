@@ -100,15 +100,15 @@ declare class Room extends GameEntity {
     hasDoor(fromRoom: Room): boolean;
     /**
      * @param {Room} fromRoom
-     * @return {{lockedBy: EntityReference, locked: boolean, closed: boolean}}
+     * @return {{lockedBy?: EntityReference, locked?: boolean, closed?: boolean}}
      */
     getDoor(fromRoom: Room | null | undefined): RoomDoor | null | undefined;
     /**
      * Check to see of the door for `fromRoom` is locked
      * @param {Room} fromRoom
-     * @return {boolean}
+     * @return {boolean|undefined}
      */
-    isDoorLocked(fromRoom: Room): boolean;
+    isDoorLocked(fromRoom: Room): boolean | undefined;
     /**
      * @param {Room} fromRoom
      */
@@ -164,8 +164,8 @@ type RoomCoordinates = {
 };
 type RoomDoor = {
     lockedBy?: EntityReference;
-    locked: boolean;
-    closed: boolean;
+    locked?: boolean;
+    closed?: boolean;
     [key: string]: unknown;
 };
 type RoomExit = {
