@@ -3,4 +3,4 @@
  * @param {Object} obj
  * @return {boolean}
  */
-export function isIterable(obj: unknown): boolean;
+export function isIterable(obj: object | null | undefined): boolean;
