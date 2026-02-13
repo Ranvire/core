@@ -19,12 +19,12 @@ export class Attribute {
      * @param {AttributeFormula} formula=null
      * @param {object} metadata={}
      */
-    constructor(name: string, base: number, delta?: number, formula?: AttributeFormula, metadata?: object);
+    constructor(name: string, base: number, delta?: number, formula?: AttributeFormula | null, metadata?: Record<string, unknown>);
     name: string;
     base: number;
     delta: number;
-    formula: AttributeFormula;
-    metadata: unknown;
+    formula: AttributeFormula | null;
+    metadata: Record<string, unknown>;
     /**
      * Lower current value
      * @param {number} amount
@@ -44,7 +44,7 @@ export class Attribute {
      * Bypass raise/lower, directly setting the delta
      * @param {amount}
      */
-    setDelta(amount: unknown): void;
+    setDelta(amount: number): void;
     serialize(): {
         delta: number;
         base: number;
@@ -55,8 +55,8 @@ export class Attribute {
  * @property {function (...number) : number} formula
  */
 export class AttributeFormula {
-    constructor(requires: unknown, fn: unknown);
-    requires: unknown[];
-    formula: unknown;
-    evaluate(attribute: unknown, ...args: unknown[]): unknown;
+    constructor(requires: string[], fn: (this: unknown, ...args: number[]) => number);
+    requires: string[];
+    formula: (this: unknown, ...args: number[]) => number;
+    evaluate(attribute: unknown, ...args: number[]): number;
 }
