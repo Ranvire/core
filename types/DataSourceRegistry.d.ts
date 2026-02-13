@@ -12,12 +12,11 @@ declare class DataSourceRegistry extends Map<string, DataSource> {
      * @param {string} rootPath project root
      * @param {object} config configuration to load
      */
-    load(requireFn: (moduleName: string) => unknown, rootPath: string, config?: Record<string, DataSourceLoaderConfig>): void;
+    load(requireFn: (moduleName: string) => Record<string, unknown>, rootPath: string, config?: Record<string, DataSourceLoaderConfig>): void;
 }
 type DataSource = {
     name: string;
-    // Source-specific hasData signatures vary by provider.
-    hasData(...args: unknown[]): boolean | Promise<boolean>;
+    hasData(config: Record<string, unknown>): boolean | Promise<boolean>;
     // Data source implementations can expose extra provider-specific methods.
     [key: string]: unknown;
 };
