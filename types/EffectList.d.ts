@@ -10,8 +10,8 @@ declare class EffectList {
      * @param {Character} target
      * @param {Array<Object|Effect>} effects array of serialized effects (Object) or actual Effect instances
      */
-    constructor(target: Character, effects: Array<unknown | Effect>);
-    effects: Set<unknown>;
+    constructor(target: Character, effects: Array<Effect | SerializedEffect>);
+    effects: Set<Effect | SerializedEffect>;
     target: Character;
     /**
      * @type {number}
@@ -80,12 +80,14 @@ declare class EffectList {
      * @return {number}
      */
     evaluateOutgoingDamage(damage: Damage, currentAmount: number): number;
-    serialize(): unknown[];
-    hydrate(state: unknown): void;
+    serialize(): SerializedEffect[];
+    hydrate(state: GameState): void;
 }
 import Character = require("./Character");
 import Damage = require("./Damage");
 import Effect = require("./Effect");
+import GameState = require("./GameState");
+type SerializedEffect = import("./Effect").SerializedEffect;
 type Atrribute = {
     name: string;
     base?: number;
