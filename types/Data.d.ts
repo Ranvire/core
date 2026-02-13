@@ -3,12 +3,13 @@ export = Data;
  * Class for loading/parsing data files from disk
  */
 declare class Data {
-    static setDataPath(path: unknown): void;
+    static setDataPath(path: string): void;
     /**
      * Read in and parse a file. Current supports yaml and json
      * @param {string} filepath
      * @return {*} parsed contents of file
      */
+    // Parsed payload shape depends on the source file schema.
     static parseFile(filepath: string): unknown;
     /**
      * Write data to a file
@@ -16,7 +17,7 @@ declare class Data {
      * @param {*} data
      * @param {function} callback
      */
-    static saveFile(filepath: string, data: unknown, callback: Function): void;
+    static saveFile(filepath: string, data: unknown, callback?: () => void): void;
     /**
      * load/parse a data file (player/account)
      * @param {string} type
@@ -31,7 +32,7 @@ declare class Data {
      * @param {*} data
      * @param {function} callback
      */
-    static save(type: string, id: string, data: unknown, callback: Function): void;
+    static save(type: string, id: string, data: unknown, callback?: () => void): void;
     /**
      * Check if a data file exists
      * @param {string} type
@@ -45,7 +46,7 @@ declare class Data {
      * @param {string} id
      * @return {string}
      */
-    static getDataFilePath(type: string, id: string): string;
+    static getDataFilePath(type: string, id: string): string | undefined;
     /**
      * Determine whether or not a path leads to a legitimate JS file or not.
      * @param {string} path
