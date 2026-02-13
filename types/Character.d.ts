@@ -14,20 +14,24 @@ export = Character;
  * @mixes Metadatable
  */
 declare class Character extends EventEmitter {
-    constructor(data: unknown);
-    name: unknown;
-    inventory: Inventory;
-    equipment: unknown;
-    combatants: Set<unknown>;
-    combatData: {};
-    level: unknown;
-    room: unknown;
-    attributes: unknown;
-    followers: Set<unknown>;
-    following: Character;
-    party: unknown;
+    constructor(data: CharacterData);
+    name: string;
+    inventory: Inventory | null;
+    // Kept broad until Npc/Player declarations are tightened to the same slot->Item map shape.
+    equipment: Map<unknown, unknown>;
+    combatants: Set<Character>;
+    combatData: {
+        lag?: number | null;
+        roundStarted?: number;
+    };
+    level: number;
+    room: Room | null;
+    attributes: Attributes | CharacterAttributesConfig;
+    followers: Set<Character>;
+    following: Character | null;
+    party: Party | null;
     effects: EffectList;
-    metadata: unknown;
+    metadata: Record<string, unknown>;
     /**
      * @param {string} attr Attribute name
      * @return {boolean}
@@ -42,7 +46,7 @@ declare class Character extends EventEmitter {
     /**
      * @see {@link Attributes#add}
      */
-    addAttribute(attribute: unknown): void;
+    addAttribute(attribute: Attribute): void;
     /**
      * Get the current value of an attribute (base modified by delta)
      * @param {string} attr
@@ -147,7 +151,7 @@ declare class Character extends EventEmitter {
      * @param {Damage} damage
      * @return {number}
      */
-    evaluateIncomingDamage(damage: Damage, currentAmount: unknown): number;
+    evaluateIncomingDamage(damage: Damage, currentAmount: number): number;
     /**
      * @see EffectList.evaluateOutgoingDamage
      * @param {Damage} damage
@@ -240,7 +244,7 @@ declare class Character extends EventEmitter {
      * Gather data to be persisted
      * @return {Object}
      */
-    serialize(): unknown;
+    serialize(): CharacterSerialized;
     /**
      * @see {@link Broadcast}
      */
@@ -252,9 +256,35 @@ declare class Character extends EventEmitter {
 }
 import EventEmitter = require("node:events");
 import { Inventory } from "./Inventory";
+import Attributes = require("./Attributes");
+import { Attribute } from "./Attribute";
 import EffectList = require("./EffectList");
 import Damage = require("./Damage");
 import Effect = require("./Effect");
 import Item = require("./Item");
-type EntityReference = unknown;
+import Room = require("./Room");
+import Party = require("./Party");
+type EntityReference = string;
 import GameState = require("./GameState");
+type CharacterAttributeState = {
+    base: number;
+    delta?: number;
+};
+type CharacterAttributesConfig = Record<string, number | CharacterAttributeState>;
+type CharacterData = {
+    name: string;
+    inventory?: object;
+    equipment?: Map<string, Item>;
+    level?: number;
+    room?: Room | null;
+    attributes?: Attributes | CharacterAttributesConfig;
+    effects?: ConstructorParameters<typeof EffectList>[1];
+    metadata?: Record<string, unknown>;
+};
+type CharacterSerialized = {
+    attributes: ReturnType<Attributes["serialize"]>;
+    level: number;
+    name: string;
+    room: EntityReference;
+    effects: ReturnType<EffectList["serialize"]>;
+};
