@@ -3,11 +3,11 @@ export = HelpManager;
  * Contain/look up helpfiles
  */
 declare class HelpManager {
-    helps: Map<unknown, unknown>;
+    helps: Map<string, Helpfile>;
     /**
      * @param {string} help Helpfile name
      */
-    get(help: string): unknown;
+    get(help: string): Helpfile | undefined;
     /**
      * @param {Helpfile} help
      */
@@ -22,7 +22,7 @@ declare class HelpManager {
      * @param {string} search
      * @return {?string}
      */
-    getFirst(help: unknown): string | null;
+    getFirst(help: string): Helpfile | null;
 }
 import Helpfile = require("./Helpfile");
 type Help = Map<string, Helpfile>;
