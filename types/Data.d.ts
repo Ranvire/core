@@ -17,6 +17,7 @@ declare class Data {
      * @param {*} data
      * @param {function} callback
      */
+    // Save payloads are schema-defined by calling code.
     static saveFile(filepath: string, data: unknown, callback?: () => void): void;
     /**
      * load/parse a data file (player/account)
@@ -24,6 +25,7 @@ declare class Data {
      * @param {string} id
      * @return {*}
      */
+    // Loaded payloads are schema-defined by calling code.
     static load(type: string, id: string): unknown;
     /**
      * Save data file (player/account) data to disk
@@ -32,6 +34,7 @@ declare class Data {
      * @param {*} data
      * @param {function} callback
      */
+    // Save payloads are schema-defined by calling code.
     static save(type: string, id: string, data: unknown, callback?: () => void): void;
     /**
      * Check if a data file exists
