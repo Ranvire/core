@@ -3,10 +3,16 @@ export = EntityLoaderRegistry;
  * Holds instances of configured EntityLoaders
  * @type {Map<string, EntityLoader>}
  */
-declare class EntityLoaderRegistry extends Map<unknown, unknown> {
+declare class EntityLoaderRegistry extends Map<string, EntityLoader> {
     constructor();
-    constructor(entries?: readonly (readonly [unknown, unknown])[]);
-    constructor();
-    constructor(iterable?: Iterable<readonly [unknown, unknown]>);
-    load(sourceRegistry: unknown, config?: {}): void;
+    constructor(entries?: readonly (readonly [string, EntityLoader])[]);
+    constructor(iterable?: Iterable<readonly [string, EntityLoader]>);
+    load(sourceRegistry: {
+        get(name: string): unknown;
+    }, config?: Record<string, EntityLoaderDefinition>): void;
 }
+import EntityLoader = require("./EntityLoader");
+type EntityLoaderDefinition = {
+    source: string;
+    config?: Record<string, unknown>;
+};
