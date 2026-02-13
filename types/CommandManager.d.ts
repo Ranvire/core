@@ -3,28 +3,31 @@ export = CommandManager;
  * Contains all active in game commands
  */
 declare class CommandManager {
-    commands: Map<unknown, unknown>;
+    commands: Map<string, Command>;
     /**
      * Get command by name
      * @param {string}
      * @return {Command}
      */
-    get(command: unknown): Command;
+    get(command: string): Command | undefined;
     /**
      * Add the command and set up aliases
      * @param {Command}
      */
-    add(command: unknown): void;
+    add(command: Command): void;
     /**
      * @param {Command}
      */
-    remove(command: unknown): void;
+    remove(command: Command): void;
     /**
      * Find a command from a partial name
      * @param {string} search
      * @param {boolean} returnAlias true to also return which alias of the command was used
      * @return {Command}
      */
-    find(search: string, returnAlias: boolean): Command;
+    find(search: string, returnAlias: boolean): Command | {
+        command: Command;
+        alias: string;
+    } | undefined;
 }
 import Command = require("./Command");
