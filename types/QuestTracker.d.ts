@@ -12,10 +12,10 @@ declare class QuestTracker {
      * @param {Array}  active
      * @param {Array}  completed
      */
-    constructor(player: Player, active: unknown[], completed: unknown[]);
+    constructor(player: Player, active: Array<[EntityReference, ActiveQuestRecord]>, completed: Array<[EntityReference, CompletedQuestRecord]>);
     player: Player;
-    activeQuests: Map<unknown, unknown>;
-    completedQuests: Map<unknown, unknown>;
+    activeQuests: Map<EntityReference, Quest | ActiveQuestRecord>;
+    completedQuests: Map<EntityReference, CompletedQuestRecord>;
     /**
      * Proxy events to all active quests
      * @param {string} event
@@ -32,7 +32,7 @@ declare class QuestTracker {
      * @return {boolean}
      */
     isComplete(qid: EntityReference): boolean;
-    get(qid: unknown): unknown;
+    get(qid: EntityReference): Quest | ActiveQuestRecord | undefined;
     /**
      * @param {EntityReference} qid
      */
@@ -53,5 +53,14 @@ declare class QuestTracker {
 }
 import Player = require("./Player");
 import Quest = require("./Quest");
-type EntityReference = unknown;
+type EntityReference = string;
 import GameState = require("./GameState");
+type ActiveQuestRecord = {
+    state: Array<Record<string, unknown>>;
+    started?: string;
+    [key: string]: unknown;
+};
+type CompletedQuestRecord = {
+    started?: string;
+    completedAt: string;
+};
