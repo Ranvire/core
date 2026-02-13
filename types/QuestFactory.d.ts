@@ -41,6 +41,7 @@ type entityReference = string;
 type QuestConfig = ConstructorParameters<typeof Quest>[2];
 type QuestGoalState = ConstructorParameters<typeof Quest>[0] extends never ? never : {
     state: Record<string, unknown>;
+    // Goal state payloads may include goal-specific extension fields.
     [key: string]: unknown;
 };
 type QuestFactoryDefinition = {
