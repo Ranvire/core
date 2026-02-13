@@ -51,8 +51,8 @@ type QuestConfig = {
     level?: number;
     autoComplete?: boolean;
     repeatable?: boolean;
-    rewards?: Array<Record<string, unknown>>;
-    goals?: Array<Record<string, unknown>>;
+    rewards?: QuestRewardConfig[];
+    goals?: QuestGoalConfig[];
     // Quest configs include custom goal/reward configuration fields.
     [key: string]: unknown;
 };
@@ -72,4 +72,12 @@ type QuestSerializedState = {
         level: number | undefined;
         title: string | undefined;
     };
+};
+type QuestGoalConfig = {
+    type: string;
+    config: Record<string, unknown>;
+};
+type QuestRewardConfig = {
+    type: string;
+    config: Record<string, unknown>;
 };
