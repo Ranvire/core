@@ -36,14 +36,11 @@ declare class QuestFactory {
 }
 import GameState = require("./GameState");
 import Quest = require("./Quest");
+import QuestGoal = require("./QuestGoal");
 import Player = require("./Player");
 type entityReference = string;
 type QuestConfig = ConstructorParameters<typeof Quest>[2];
-type QuestGoalState = ConstructorParameters<typeof Quest>[0] extends never ? never : {
-    state: Record<string, unknown>;
-    // Goal state payloads may include goal-specific extension fields.
-    [key: string]: unknown;
-};
+type QuestGoalState = ReturnType<QuestGoal["serialize"]>;
 type QuestFactoryDefinition = {
     id: string | number;
     area: string;
