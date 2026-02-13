@@ -54,7 +54,7 @@ import GameState = require("./GameState");
 type SerializedInventoryItem = {
     entityReference?: string;
     inventory?: {
-        items: Array<[string, unknown]>;
+        items: Array<[string, ReturnType<Item["serialize"]>]>;
         max: number;
     };
     // Serialized item payload may include arbitrary item-specific fields.
