@@ -31,6 +31,5 @@ declare class TransportStream extends EventEmitter {
 }
 import EventEmitter = require("node:events");
 type CloseListenable = {
-    // Close event payload differs by socket implementation and is ignored here.
-    on(event: "close", listener: (_: unknown) => void): void;
+    on(event: "close", listener: () => void): void;
 };
