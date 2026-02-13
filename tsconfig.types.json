@@ -8,5 +8,8 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["types/validate.ts"]
+  "include": [
+    "types/validate.ts",
+    "test/types/**/*.ts"
+  ]
 }
