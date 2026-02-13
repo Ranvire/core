@@ -3,7 +3,7 @@ export = SkillManager;
  * Keeps track of registered skills
  */
 declare class SkillManager {
-    skills: Map<unknown, unknown>;
+    skills: Map<string, Skill>;
     /**
      * @param {string} skill Skill name
      * @return {Skill|undefined}
@@ -23,6 +23,6 @@ declare class SkillManager {
      * @param {boolean} includePassive
      * @return {Skill}
      */
-    find(search: string, includePassive?: boolean): Skill;
+    find(search: string, includePassive?: boolean): Skill | undefined;
 }
 import Skill = require("./Skill");
