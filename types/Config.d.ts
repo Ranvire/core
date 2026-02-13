@@ -7,8 +7,8 @@ declare class Config {
      * @param {string} key
      * @param {*} fallback fallback value
      */
-    // Config values are user-defined, so reads remain unknown at the type level.
-    static get(key: string, fallback?: unknown): unknown;
+    static get<T>(key: string, fallback: T): T;
+    static get(key: string): unknown;
     /**
      * Load `ranvier.json` from disk
      */
