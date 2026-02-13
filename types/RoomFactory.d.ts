@@ -11,7 +11,8 @@ declare class RoomFactory extends EntityFactory {
      * @param {string} entityRef
      * @return {Room}
      */
-    create(area: Area, entityRef: string): Room;
+    create(area?: Area, entityRef?: string): Room;
 }
+import Area = require("./Area");
 import EntityFactory = require("./EntityFactory");
 import Room = require("./Room");

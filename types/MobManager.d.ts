@@ -14,3 +14,5 @@ declare class MobManager {
      */
     removeMob(mob: Mob): void;
 }
+import Npc = require("./Npc");
+type Mob = Npc;

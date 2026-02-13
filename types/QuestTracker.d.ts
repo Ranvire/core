@@ -51,3 +51,7 @@ declare class QuestTracker {
      */
     serialize(): object;
 }
+import Player = require("./Player");
+import Quest = require("./Quest");
+type EntityReference = unknown;
+import GameState = require("./GameState");

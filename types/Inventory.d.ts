@@ -48,3 +48,6 @@ export class Inventory extends Map<unknown, unknown> {
  */
 export class InventoryFullError extends Error {
 }
+import Character = require("./Character");
+import Item = require("./Item");
+import GameState = require("./GameState");

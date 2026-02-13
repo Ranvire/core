@@ -6,6 +6,6 @@ export = PrivateAudience;
  * @extends ChannelAudience
  */
 declare class PrivateAudience extends ChannelAudience {
-    alterMessage(message: unknown): unknown;
+    alterMessage(message: string): string;
 }
 import ChannelAudience = require("./ChannelAudience");

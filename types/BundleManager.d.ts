@@ -132,3 +132,7 @@ declare class BundleManager {
     _registerOrThrow(registry: unknown, key: unknown, bundle: unknown, source?: unknown): void;
 }
 import Command = require("./Command");
+import EntityFactory = require("./EntityFactory");
+type EntityReference = unknown;
+import GameState = require("./GameState");
+type entityReference = unknown;

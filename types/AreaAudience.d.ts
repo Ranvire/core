@@ -5,6 +5,6 @@ export = AreaAudience;
  * @extends ChannelAudience
  */
 declare class AreaAudience extends ChannelAudience {
-    getBroadcastTargets(): unknown;
+    getBroadcastTargets(): ReturnType<ChannelAudience["getBroadcastTargets"]>;
 }
 import ChannelAudience = require("./ChannelAudience");

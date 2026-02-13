@@ -35,3 +35,5 @@ declare class QuestFactory {
     makeQuestKey(area: unknown, id: number): string;
 }
 import Quest = require("./Quest");
+import Player = require("./Player");
+type entityReference = unknown;

@@ -50,4 +50,9 @@ declare class EntityFactory {
     clone(entity: Item | Npc | Room | Area): Item | Npc | Room | Area;
 }
 import BehaviorManager = require("./BehaviorManager");
+import Area = require("./Area");
+import Item = require("./Item");
 import Npc = require("./Npc");
+import Room = require("./Room");
+type Class = new (...args: unknown[]) => unknown;
+type type = unknown;

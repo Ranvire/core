@@ -13,7 +13,8 @@ declare class ItemFactory extends EntityFactory {
      * @param {string} entityRef
      * @return {Item}
      */
-    create(area: Area, entityRef: string): Item;
+    create(area?: Area, entityRef?: string): Item;
 }
+import Area = require("./Area");
 import EntityFactory = require("./EntityFactory");
 import Item = require("./Item");

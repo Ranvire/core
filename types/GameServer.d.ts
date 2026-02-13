@@ -1,5 +1,5 @@
 export = GameServer;
-declare class GameServer extends EventEmitter<unknown> {
+declare class GameServer extends EventEmitter {
     constructor(options?: EventEmitter.EventEmitterOptions);
     /**
      * @param {commander} commander

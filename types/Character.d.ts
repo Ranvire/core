@@ -13,7 +13,7 @@ export = Character;
  * @extends EventEmitter
  * @mixes Metadatable
  */
-declare class Character extends EventEmitter<unknown> {
+declare class Character extends EventEmitter {
     constructor(data: unknown);
     name: unknown;
     inventory: Inventory;
@@ -28,12 +28,6 @@ declare class Character extends EventEmitter<unknown> {
     party: unknown;
     effects: EffectList;
     metadata: unknown;
-    /**
-     * Proxy all events on the player to effects
-     * @param {string} event
-     * @param {...*}   args
-     */
-    emit(event: string, ...args: unknown[]): void;
     /**
      * @param {string} attr Attribute name
      * @return {boolean}
@@ -240,7 +234,7 @@ declare class Character extends EventEmitter<unknown> {
      * Initialize the character from storage
      * @param {GameState} state
      */
-    hydrate(state: GameState): boolean;
+    hydrate(state: GameState): boolean | void;
     __hydrated: boolean;
     /**
      * Gather data to be persisted
@@ -259,3 +253,8 @@ declare class Character extends EventEmitter<unknown> {
 import EventEmitter = require("node:events");
 import { Inventory } from "./Inventory";
 import EffectList = require("./EffectList");
+import Damage = require("./Damage");
+import Effect = require("./Effect");
+import Item = require("./Item");
+type EntityReference = unknown;
+import GameState = require("./GameState");

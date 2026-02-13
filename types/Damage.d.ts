@@ -34,3 +34,4 @@ declare class Damage {
      */
     commit(target: Character): void;
 }
+import Character = require("./Character");

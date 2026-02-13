@@ -111,3 +111,4 @@ declare class Item extends GameEntity {
 }
 import GameEntity = require("./GameEntity");
 import { Inventory } from "./Inventory";
+import Character = require("./Character");

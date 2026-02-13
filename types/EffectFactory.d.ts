@@ -34,3 +34,4 @@ type EffectConfig = {
 /** @typedef {{config: Object<string,*>, listeners: Object<String,function (...*)>}} */
 declare var EffectConfig: unknown;
 import Effect = require("./Effect");
+import GameState = require("./GameState");

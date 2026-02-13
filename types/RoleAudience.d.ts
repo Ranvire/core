@@ -2,6 +2,6 @@ export = RoleAudience;
 declare class RoleAudience extends ChannelAudience {
     constructor(options: unknown);
     minRole: unknown;
-    getBroadcastTargets(): unknown;
+    getBroadcastTargets(): ReturnType<ChannelAudience["getBroadcastTargets"]>;
 }
 import ChannelAudience = require("./ChannelAudience");

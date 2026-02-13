@@ -13,7 +13,8 @@ declare class MobFactory extends EntityFactory {
      * @param {string} entityRef
      * @return {Npc}
      */
-    create(area: Area, entityRef: string): Npc;
+    create(area?: Area, entityRef?: string): Npc;
 }
+import Area = require("./Area");
 import EntityFactory = require("./EntityFactory");
 import Npc = require("./Npc");

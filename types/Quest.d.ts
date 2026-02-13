@@ -5,7 +5,7 @@ export = Quest;
  * @property {object} state  Current completion state
  * @extends EventEmitter
  */
-declare class Quest extends EventEmitter<unknown> {
+declare class Quest extends EventEmitter {
     constructor(GameState: unknown, id: unknown, config: unknown, player: unknown);
     id: unknown;
     entityReference: unknown;
@@ -14,12 +14,6 @@ declare class Quest extends EventEmitter<unknown> {
     goals: unknown[];
     state: unknown[];
     GameState: unknown;
-    /**
-     * Proxy all events to all the goals
-     * @param {string} event
-     * @param {...*}   args
-     */
-    emit(event: string, ...args: unknown[]): void;
     addGoal(goal: unknown): void;
     /**
      * @fires Quest#turn-in-ready

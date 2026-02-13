@@ -36,3 +36,5 @@ declare class ChannelAudience {
      */
     alterMessage(message: string): string;
 }
+import Player = require("./Player");
+import GameState = require("./GameState");

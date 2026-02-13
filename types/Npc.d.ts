@@ -34,3 +34,4 @@ declare class Npc extends Character {
 }
 import Character = require("./Character");
 import CommandQueue = require("./CommandQueue");
+import Room = require("./Room");

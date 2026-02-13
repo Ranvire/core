@@ -83,3 +83,10 @@ declare class EffectList {
     serialize(): unknown[];
     hydrate(state: unknown): void;
 }
+import Character = require("./Character");
+import Damage = require("./Damage");
+import Effect = require("./Effect");
+type Atrribute = {
+    name: string;
+    base?: number;
+};

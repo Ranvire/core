@@ -41,3 +41,4 @@ declare class AreaManager {
 }
 import BehaviorManager = require("./BehaviorManager");
 import Area = require("./Area");
+import GameState = require("./GameState");

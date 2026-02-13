@@ -5,7 +5,7 @@ export = QuestGoal;
  * create new quest goals for quests
  * @extends EventEmitter
  */
-declare class QuestGoal extends EventEmitter<unknown> {
+declare class QuestGoal extends EventEmitter {
     /**
      * @param {Quest} quest Quest this goal is for
      * @param {object} config
@@ -38,3 +38,5 @@ declare class QuestGoal extends EventEmitter<unknown> {
     hydrate(state: unknown): void;
 }
 import EventEmitter = require("node:events");
+import Player = require("./Player");
+import Quest = require("./Quest");

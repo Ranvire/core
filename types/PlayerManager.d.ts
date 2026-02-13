@@ -8,7 +8,7 @@ export = PlayerManager;
  * @listens PlayerManager#save
  * @listens PlayerManager#updateTick
  */
-declare class PlayerManager extends EventEmitter<unknown> {
+declare class PlayerManager extends EventEmitter {
     constructor();
     players: Map<unknown, unknown>;
     events: EventManager;
@@ -38,11 +38,6 @@ declare class PlayerManager extends EventEmitter<unknown> {
      * @return {array}
      */
     getPlayersAsArray(): unknown[];
-    /**
-     * @param {string}   behaviorName
-     * @param {Function} listener
-     */
-    addListener(event: unknown, listener: Function): void;
     /**
      * @param {Function} fn Filter function
      * @return {array}
@@ -88,5 +83,8 @@ declare class PlayerManager extends EventEmitter<unknown> {
     getBroadcastTargets(): Array<Character>;
 }
 import EventEmitter = require("node:events");
+import Account = require("./Account");
+import Character = require("./Character");
 import EventManager = require("./EventManager");
 import Player = require("./Player");
+import GameState = require("./GameState");

@@ -34,5 +34,6 @@ declare class EventManager {
      * @param {EventEmitter}  emitter
      * @param {?string|iterable} events Optional name or list of event names to remove listeners from
      */
-    detach(emitter: EventEmitter, events: (string | iterable) | null): void;
+    detach(emitter: EventEmitter, events: (string | Iterable<unknown>) | null): void;
 }
+import EventEmitter = require("node:events");

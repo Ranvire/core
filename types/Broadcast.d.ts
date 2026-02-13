@@ -12,7 +12,7 @@ declare class Broadcast {
      * @param {?function(target, message): string} formatter=null Function to call to format the
      *   message to each target
      */
-    static at(source: Broadcastable, message?: string, wrapWidth?: number | boolean, useColor?: boolean, formatter?: ((arg0: target, arg1: string) => string) | null): void;
+    static at(source: Broadcastable, message?: string, wrapWidth?: number | boolean, useColor?: boolean, formatter?: ((arg0: BroadcastTarget, arg1: string) => string) | null): void;
     /**
      * Broadcast.at for all except given list of players
      * @see {@link Broadcast#at}
@@ -106,10 +106,7 @@ declare class Broadcast {
      * @private
      */
     private static _fixNewlines;
-    static isBroadcastable(source: unknown): boolean;
+    static isBroadcastable(source: unknown): source is Broadcastable;
 }
-type Broadcastable = {
-    getBroadcastTargets: () => unknown[];
-};
-/** @typedef {{getBroadcastTargets: function(): Array}} */
-declare var Broadcastable: unknown;
+import type { Broadcastable, BroadcastTarget } from "./Broadcastable";
+import Player = require("./Player");

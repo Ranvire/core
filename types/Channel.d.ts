@@ -2,7 +2,7 @@
  * @property {ChannelAudience} audience People who receive messages from this channel
  * @property {string} name  Actual name of the channel the user will type
  * @property {string} color Default color. This is purely a helper if you're using default format methods
- * @property {PlayerRoles} minRequiredRole If set only players with the given role or greater can use the channel
+ * @property {number} minRequiredRole If set only players with the given role or greater can use the channel
  * @property {string} description
  * @property {{sender: function, target: function}} [formatter]
  */
@@ -12,7 +12,7 @@ export class Channel {
      * @param {string} config.name Name of the channel
      * @param {ChannelAudience} config.audience
      * @param {string} [config.description]
-     * @param {PlayerRoles} [config.minRequiredRole]
+     * @param {number} [config.minRequiredRole]
      * @param {string} [config.color]
      * @param {{sender: function, target: function}} [config.formatter]
      */
@@ -20,7 +20,7 @@ export class Channel {
         name: string;
         audience: ChannelAudience;
         description?: string;
-        minRequiredRole?: PlayerRoles;
+        minRequiredRole?: number;
         color?: string;
         formatter?: {
             sender: Function;
@@ -74,3 +74,7 @@ export class NoRecipientError extends Error {
 }
 export class NoMessageError extends Error {
 }
+import ChannelAudience = require("./ChannelAudience");
+import Player = require("./Player");
+import PlayerRoles = require("./PlayerRoles");
+import GameState = require("./GameState");

@@ -26,7 +26,7 @@ export = Effect;
  *
  * @listens Effect#effectAdded
  */
-declare class Effect extends EventEmitter<unknown> {
+declare class Effect extends EventEmitter {
     constructor(id: unknown, def: unknown);
     id: unknown;
     flags: unknown;
@@ -122,6 +122,7 @@ declare namespace Effect {
     export { EffectModifiers };
 }
 import EventEmitter = require("node:events");
+import Damage = require("./Damage");
 /**
  * {{attributes: !Object<string,function>}}
  */

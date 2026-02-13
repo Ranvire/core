@@ -22,3 +22,4 @@ export class CooldownError extends Error {
     constructor(effect: Effect);
     effect: Effect;
 }
+import Effect = require("./Effect");

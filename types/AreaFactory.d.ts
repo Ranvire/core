@@ -13,7 +13,7 @@ declare class AreaFactory extends EntityFactory {
      * @param {string} entityRef Area name
      * @return {Area}
      */
-    create(entityRef: string): Area;
+    create(entityRef?: string): Area;
     /**
      * @see AreaFactory#create
      */

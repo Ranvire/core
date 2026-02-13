@@ -95,3 +95,7 @@ declare class Skill {
         cost: number;
     }): boolean;
 }
+import Character = require("./Character");
+import Effect = require("./Effect");
+import Player = require("./Player");
+import GameState = require("./GameState");

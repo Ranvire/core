@@ -27,3 +27,4 @@ declare class CommandManager {
      */
     find(search: string, returnAlias: boolean): Command;
 }
+import Command = require("./Command");

@@ -24,3 +24,5 @@ declare class HelpManager {
      */
     getFirst(help: unknown): string | null;
 }
+import Helpfile = require("./Helpfile");
+type Help = Map<string, Helpfile>;

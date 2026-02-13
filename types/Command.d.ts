@@ -55,3 +55,4 @@ declare class Command {
      */
     execute(args: string, player: Player, arg0: string): unknown;
 }
+import Player = require("./Player");

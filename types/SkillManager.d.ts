@@ -25,3 +25,4 @@ declare class SkillManager {
      */
     find(search: string, includePassive?: boolean): Skill;
 }
+import Skill = require("./Skill");

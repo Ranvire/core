@@ -2,7 +2,7 @@ export = TransportStream;
 /**
  * Base class for anything that should be sending or receiving data from the player
  */
-declare class TransportStream extends EventEmitter<unknown> {
+declare class TransportStream extends EventEmitter {
     constructor(options?: EventEmitter.EventEmitterOptions);
     get readable(): boolean;
     get writable(): boolean;

@@ -39,3 +39,4 @@ declare class AreaFloor {
     getRoom(x: unknown, y: unknown): Room | boolean;
     removeRoom(x: unknown, y: unknown): void;
 }
+import Room = require("./Room");

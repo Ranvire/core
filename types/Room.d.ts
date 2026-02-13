@@ -47,13 +47,6 @@ declare class Room extends GameEntity {
      */
     spawnedNpcs: Set<unknown>;
     /**
-     * Emits event on self and proxies certain events to other entities in the room.
-     * @param {string} eventName
-     * @param {...*} args
-     * @return {void}
-     */
-    emit(eventName: string, ...args: unknown[]): void;
-    /**
      * @param {Player} player
      */
     addPlayer(player: Player): void;
@@ -160,3 +153,9 @@ declare class Room extends GameEntity {
     getBroadcastTargets(): Array<Character>;
 }
 import GameEntity = require("./GameEntity");
+import Character = require("./Character");
+import Item = require("./Item");
+import Npc = require("./Npc");
+import Player = require("./Player");
+type EntityReference = unknown;
+import GameState = require("./GameState");

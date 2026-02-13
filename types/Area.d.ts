@@ -94,3 +94,7 @@ declare class Area extends GameEntity {
     getBroadcastTargets(): Array<Broadcastable>;
 }
 import GameEntity = require("./GameEntity");
+import Npc = require("./Npc");
+import Room = require("./Room");
+import type { Broadcastable } from "./Broadcastable";
+import GameState = require("./GameState");

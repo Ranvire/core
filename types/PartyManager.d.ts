@@ -17,3 +17,4 @@ declare class PartyManager extends Set<unknown> {
     disband(party: Party): void;
 }
 import Party = require("./Party");
+import Player = require("./Player");

@@ -79,6 +79,7 @@ import SkillType = require("./SkillType");
 import TransportStream = require("./TransportStream");
 import * as Util from "./Util";
 import WorldAudience = require("./WorldAudience");
+import type { Broadcastable as BroadcastableType, BroadcastTarget as BroadcastTargetType } from "./Broadcastable";
 
 declare const ranvier: {
   Account: typeof Account;
@@ -161,5 +162,10 @@ declare const ranvier: {
   Util: typeof Util;
   WorldAudience: typeof WorldAudience;
 };
+
+declare namespace ranvier {
+  type BroadcastTarget = BroadcastTargetType;
+  type Broadcastable<TTarget extends BroadcastTarget = BroadcastTarget> = BroadcastableType<TTarget>;
+}
 
 export = ranvier;

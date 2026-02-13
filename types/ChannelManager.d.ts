@@ -25,3 +25,4 @@ declare class ChannelManager {
      */
     find(search: string): Channel;
 }
+import { Channel } from "./Channel";
