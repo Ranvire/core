@@ -7,5 +7,6 @@ declare class RoleAudience extends ChannelAudience {
 import ChannelAudience = require("./ChannelAudience");
 type RoleAudienceOptions = {
     minRole: number;
+    // Channel audience options may include additional fields used by callers.
     [key: string]: unknown;
 };
