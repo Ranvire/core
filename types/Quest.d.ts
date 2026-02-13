@@ -53,10 +53,12 @@ type QuestConfig = {
     repeatable?: boolean;
     rewards?: Array<Record<string, unknown>>;
     goals?: Array<Record<string, unknown>>;
+    // Quest configs include custom goal/reward configuration fields.
     [key: string]: unknown;
 };
 type QuestGoalState = {
     state: Record<string, unknown>;
+    // Goal serializers may include goal-specific extension fields.
     [key: string]: unknown;
 };
 type QuestSerializedState = {
