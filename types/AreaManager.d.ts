@@ -4,18 +4,18 @@ export = AreaManager;
  * @property {Map<string,Area>} areas
  */
 declare class AreaManager {
-    areas: Map<unknown, unknown>;
+    areas: Map<string, Area>;
     scripts: BehaviorManager;
     /**
      * @param {string} name
      * @return Area
      */
-    getArea(name: string): unknown;
+    getArea(name: string): Area | undefined;
     /**
      * @param {string} entityRef
      * @return Area
      */
-    getAreaByReference(entityRef: string): unknown;
+    getAreaByReference(entityRef: string): Area | undefined;
     /**
      * @param {Area} area
      */
@@ -37,7 +37,7 @@ declare class AreaManager {
      * @return {Area}
      */
     getPlaceholderArea(): Area;
-    _placeholder: Area;
+    _placeholder?: Area;
 }
 import BehaviorManager = require("./BehaviorManager");
 import Area = require("./Area");
