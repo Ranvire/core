@@ -14,12 +14,13 @@ declare class Damage {
      * @param {*} [source=null] Where the damage came from: skill, item, room, etc.
      * @property {Object} metadata Extra info about the damage: type, hidden, critical, etc.
      */
-    constructor(attribute: string, amount: number, attacker?: Character, source?: unknown, metadata?: {});
-    attacker: Character;
+    constructor(attribute: string, amount: number, attacker?: Character | null, source?: unknown, metadata?: Record<string, unknown>);
+    attacker: Character | null;
     attribute: string;
     amount: number;
+    // Source can be any gameplay object (skill, item, room, etc.).
     source: unknown;
-    metadata: {};
+    metadata: Record<string, unknown>;
     /**
      * Evaluate actual damage taking attacker/target's effects into account
      * @param {Character} target
