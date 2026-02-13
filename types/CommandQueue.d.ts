@@ -3,7 +3,7 @@ export = CommandQueue;
  * Keeps track of the queue off commands to execute for a player
  */
 declare class CommandQueue {
-    commands: unknown[];
+    commands: CommandExecutable[];
     lag: number;
     lastRun: number;
     /**
@@ -27,7 +27,7 @@ declare class CommandQueue {
     /**
      * @type {Array<Object>}
      */
-    get queue(): Array<unknown>;
+    get queue(): CommandExecutable[];
     /**
      * Flush all pending commands. Does _not_ reset lastRun/lag. Meaning that if
      * the queue is flushed after a command was just run its lag will still have
@@ -66,9 +66,7 @@ declare class CommandQueue {
     getMsTilRun(commandIndex: number): number;
 }
 type CommandExecutable = {
-    execute: () => unknown;
+    execute: () => void;
     label: string;
     lag: number;
 };
-/** @typedef {{ execute: function (), label: string, lag: number= }} */
-declare var CommandExecutable: unknown;
