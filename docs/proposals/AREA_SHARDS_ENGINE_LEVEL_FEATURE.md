@@ -131,7 +131,23 @@ Each `AreaInstance` owns:
 
 - Only shard rooms are inserted into `RoomManager` under instance-qualified refs.
 - Cross-room links/exits inside shard always resolve to same instance via rewritten `roomId` refs during hydrate/clone.
+- Door maps must also be rewritten during clone/hydrate: `Room.doors` is keyed by exact `fromRoom.entityReference`, so keys like `castle:4` must become `castle#<instanceId>:4` for shard instances.
 - No fallback from shard lookup to shared template refs once attached.
+
+### Save/load reference policy (critical for disconnect/login)
+
+To avoid persisting dead shard instance ids:
+
+- **Do not persist `area#<instanceId>:roomId`** on the character record.
+- Persist canonical template room reference only (`area:roomId`) plus optional shard affinity metadata (`mode`, `lastPartyId` if needed).
+
+On login/hydration, if the saved room belongs to a sharded template area:
+
+1. Resolve shard key from current player context (`solo`) or current party context (`party`).
+2. `ShardManager.getOrCreateInstance(...)` for that key.
+3. Place player into the equivalent room id in the new/resolved instance.
+
+If party mode cannot resolve a valid party context at login, use explicit deterministic fallback policy (recommended: place player in a configured safe non-sharded room and require regrouping before re-entry).
 
 ---
 
@@ -170,6 +186,14 @@ Trigger `ShardManager.onPlayerRoomChange(player, prevRoom, nextRoom)` from move 
 Also call detachment from:
 - `PlayerManager#removePlayer` (disconnect/prune)
 - Any forced relocation helper that bypasses standard move callback (if present in bundles, provide a utility API and document use)
+
+### Disconnect + reconnect behavior
+
+- Disconnect while inside a shard should count as leaving for participant tracking.
+- If this disconnect causes participant count to hit zero, shard is torn down immediately.
+- Reconnect should never rely on prior instance id resurrection; it should re-enter via normal shard resolution from saved canonical room + current key context.
+
+This keeps lifecycle deterministic and prevents stale saved room references from pinning or reviving leaked instances.
 
 ### Teardown contract
 
@@ -318,6 +342,10 @@ Keep each phase in separate small commits.
    - Risk: wrong room lookup or exit points to shared template room.
    - Mitigation: rewrite all in-instance exit refs during clone/hydrate and test hard for no shared visibility between solo shards.
 
+5. **Door enforcement regression risk in shards**
+   - Risk: `Room.doors` keys remain template refs (`area:room`) while runtime movement uses namespaced refs (`area#instance:room`), causing `hasDoor/getDoor` checks to miss and silently bypass lock/closed enforcement.
+   - Mitigation: rewrite door-map keys alongside exits during instance materialization and add targeted lock/closed door behavior tests in sharded instances.
+
 ---
 
 ## Required tests for first implementation
@@ -340,10 +368,19 @@ At minimum:
    - Participant disconnects while alone in shard.
    - Assert teardown occurs.
 
-5. **Deterministic rehydration hooks**
+5. **Reconnect from sharded saved room**
+   - Persist player while they are in a sharded template room.
+   - Assert saved room reference is canonical (`area:room`) not instance-qualified.
+   - On next hydrate/login, assert engine resolves/creates the correct shard and places player in same template room id within that instance.
+
+6. **Deterministic rehydration hooks**
    - Assert `shardCreated` fires before first `playerEnterShard` for new shard.
 
-6. **Regression smoke for non-sharded areas**
+7. **Sharded door semantics parity**
+   - In a sharded area with locked/closed doors, assert movement checks still enforce lock/closed state exactly as template area behavior.
+   - Assert both explicit exits and inferred/door-guarded transitions respect rewritten door keys.
+
+8. **Regression smoke for non-sharded areas**
    - Existing movement into normal areas unchanged.
 
 ---
