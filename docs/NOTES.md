@@ -10,6 +10,7 @@ This repository is the core engine only. It is designed to be extended by downst
 
 - Runtime area hot-reload design spec: `docs/proposals/AREA_HOT_RELOAD.md`
 - Query hook guard + event-driven script model: `docs/proposals/QUERY_HOOK_GUARD_AND_EVENT_DRIVEN_SCRIPTS.md`
+- First-class script exports for authored content scripts: `docs/proposals/FIRST_CLASS_SCRIPT_EXPORTS.md`
 
 ## Public API surface
 
