@@ -62,7 +62,8 @@ declare class Character extends EventEmitter {
      * Fired when a Character's attribute is set, raised, or lowered
      * @event Character#attributeUpdate
      * @param {string} attributeName
-     * @param {Attribute} attribute
+     * @param {number} current Current effective value of the attribute
+     * @param {AttributeUpdateSnapshot} attribute Attribute snapshot after mutation
      */
     /**
      * Clears unknown changes to the attribute, setting it to its base value.
@@ -286,4 +287,11 @@ type CharacterSerialized = {
     name: string;
     room: EntityReference;
     effects: ReturnType<EffectList["serialize"]>;
+};
+type AttributeUpdateSnapshot = {
+    name: string;
+    base: number;
+    max: number;
+    current: number;
+    delta: number;
 };

@@ -131,8 +131,23 @@ class Character extends Metadatable(EventEmitter) {
    * Fired when a Character's attribute is set, raised, or lowered
    * @event Character#attributeUpdate
    * @param {string} attributeName
-   * @param {Attribute} attribute
+   * @param {number} current Current effective value of the attribute
+   * @param {{name: string, base: number, max: number, current: number, delta: number}} attribute
+   * Attribute snapshot after mutation
    */
+
+  emitAttributeUpdate(attr) {
+    const attribute = this.attributes.get(attr);
+    const max = this.getMaxAttribute(attr);
+    const current = max + attribute.delta;
+    this.emit('attributeUpdate', attr, current, {
+      name: attr,
+      base: attribute.base,
+      max,
+      current,
+      delta: attribute.delta,
+    });
+  }
 
   /**
    * Clears any changes to the attribute, setting it to its base value.
@@ -145,7 +160,7 @@ class Character extends Metadatable(EventEmitter) {
     }
 
     this.attributes.get(attr).setDelta(0);
-    this.emit('attributeUpdate', attr, this.getAttribute(attr));
+    this.emitAttributeUpdate(attr);
   }
 
   /**
@@ -161,7 +176,7 @@ class Character extends Metadatable(EventEmitter) {
     }
 
     this.attributes.get(attr).raise(amount);
-    this.emit('attributeUpdate', attr, this.getAttribute(attr));
+    this.emitAttributeUpdate(attr);
   }
 
   /**
@@ -177,7 +192,7 @@ class Character extends Metadatable(EventEmitter) {
     }
 
     this.attributes.get(attr).lower(amount);
-    this.emit('attributeUpdate', attr, this.getAttribute(attr));
+    this.emitAttributeUpdate(attr);
   }
 
   /**
@@ -199,7 +214,7 @@ class Character extends Metadatable(EventEmitter) {
     }
 
     this.attributes.get(attr).setBase(newBase);
-    this.emit('attributeUpdate', attr, this.getAttribute(attr));
+    this.emitAttributeUpdate(attr);
   }
 
   /**

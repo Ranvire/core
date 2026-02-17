@@ -141,6 +141,24 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/EntityFactory.js` (`clone/create contract` coverage)
 - Timestamp: 2026.02.17 14:28
 
+### Character attributeUpdate payload contract alignment
+
+- Summary:
+  - Aligned `Character#attributeUpdate` runtime payload with documented contract by emitting a third snapshot argument while preserving the existing second numeric argument.
+  - Updated Character docs/types to describe the exact event signature.
+- Why:
+  - The documented event contract did not match implementation, which emitted only `(attributeName, current)` and omitted attribute-structure context for listeners.
+- Impact:
+  - Event listeners now receive `('attributeUpdate', attributeName, current, snapshot)` where `snapshot` includes `{ name, base, max, current, delta }`.
+  - Existing listeners using the second argument remain compatible.
+- Migration/Action:
+  - Optional: listeners that need richer context can consume the new third `snapshot` argument.
+  - No action required for listeners that only use `attributeName`/`current`.
+- References:
+  - Issue: #67
+  - Tests: `test/unit/CharacterAttributeUpdate.js` (all four attribute mutation paths)
+- Timestamp: 2026.02.17 15:53
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
