@@ -122,6 +122,25 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/AreaFloor.js` (`uses Map-backed coordinate storage`, signed coordinate coverage)
 - Timestamp: 2026.02.17 14:18
 
+### EntityFactory clone/create contract guardrails
+
+- Summary:
+  - Added explicit runtime contract checks in `EntityFactory.clone(entity)` before dispatching to subclass `create(...)`.
+  - `clone()` now throws clear `TypeError` messages when subclass `create()` is not implemented or when `entity.entityReference` is missing.
+  - Documented clone/create contract expectations in `types/EntityFactory.d.ts`.
+- Why:
+  - Base clone behavior relied on an implicit `(area, entityRef)` create signature and failed with ambiguous runtime errors when subclasses did not follow the contract.
+- Impact:
+  - Consumers extending `EntityFactory` now get immediate, explicit contract errors instead of indirect failures.
+  - Existing concrete factories with compliant signatures continue to behave the same.
+  - `AreaFactory.clone()` override behavior remains unchanged.
+- Migration/Action:
+  - Custom subclasses relying on base `clone()` must implement `create(area, entityRef)` or override `clone()`.
+- References:
+  - Issue: #43
+  - Tests: `test/unit/EntityFactory.js` (`clone/create contract` coverage)
+- Timestamp: 2026.02.17 14:28
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
