@@ -35,6 +35,26 @@ function withStubbedLoggerWarn(run) {
 }
 
 describe('BundleManager warnings', () => {
+  it('warns when no bundles are configured or loadable during startup', async () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bundle-warn-'));
+    const state = {
+      Config: { get: (key, fallback) => key === 'bundles' ? [] : fallback },
+      AttributeFactory: { validateAttributes: () => {} },
+      EntityLoaderRegistry: {},
+    };
+    const manager = new BundleManager(tempDir + path.sep, state);
+    manager.loadBundle = async () => {};
+
+    const warnCalls = await withStubbedLoggerWarn(() => manager.loadBundles(false));
+
+    assert.ok(
+      warnCalls.some(msg => msg.includes('No bundles were loaded')),
+      'expected no bundles loaded warning'
+    );
+
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  });
+
   it('includes bundle and area in invalid entity data warnings', async () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bundle-warn-'));
     const loader = {

@@ -52,6 +52,7 @@ class BundleManager {
 
     const configuredBundles = this.state.Config.get('bundles', []);
     const seenBundles = new Set();
+    let loadedBundleCount = 0;
 
     for (const bundle of configuredBundles) {
       if (seenBundles.has(bundle)) {
@@ -76,6 +77,12 @@ class BundleManager {
       }
 
       await this.loadBundle(bundle, bundlePath);
+      loadedBundleCount++;
+    }
+
+    if (!loadedBundleCount) {
+      const configuredList = configuredBundles.length ? configuredBundles.join(', ') : '(none)';
+      Logger.warn(`No bundles were loaded. Configured bundles: [${configuredList}]. Bundle path: [${this.bundlesPath}]`);
     }
 
     try {
