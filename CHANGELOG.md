@@ -258,6 +258,22 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/CommandManager.js` (`remove` alias cleanup coverage)
 - Timestamp: 2026.02.17 16:44
 
+### BundleManager no-bundles startup warning
+
+- Summary:
+  - Added an explicit startup warning when bundle loading completes with zero bundles loaded.
+- Why:
+  - Startup could appear to hang or proceed silently when no bundles were configured/loadable, making root cause discovery slow.
+- Impact:
+  - On no-bundles startup, logs now include a warning with configured bundle list and bundle path.
+  - Startup behavior is otherwise unchanged (warning-only; no forced throw).
+- Migration/Action:
+  - If warning appears, verify `Config.bundles` and bundle directory contents/path.
+- References:
+  - Issue: #34
+  - Tests: `test/unit/BundleManagerWarnings.js` (`warns when no bundles are configured or loadable during startup`)
+- Timestamp: 2026.02.17 17:04
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
