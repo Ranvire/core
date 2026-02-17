@@ -73,6 +73,19 @@ class AttributeFactory {
       return acc;
     }, {});
 
+    const missing = [];
+    for (const [attrName, required] of Object.entries(references)) {
+      for (const reqAttr of required) {
+        if (!this.attributes.has(reqAttr)) {
+          missing.push(`[${attrName} -> ${reqAttr}]`);
+        }
+      }
+    }
+
+    if (missing.length) {
+      throw new Error(`Attribute validation failed: missing formula dependencies: ${missing.join(', ')}`);
+    }
+
     for (const attrName in references) {
       const check = this._checkReferences(attrName, references);
       if (Array.isArray(check)) {
@@ -112,4 +125,3 @@ class AttributeFactory {
 }
 
 module.exports = AttributeFactory;
-
