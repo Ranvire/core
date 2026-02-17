@@ -4,6 +4,23 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
 
 ## Unreleased
 
+### Player missing-room hydrate recovery
+
+- Summary:
+  - Updated `Player#hydrate` to repair players saved with missing/null `room` by moving them to the placeholder room.
+  - Added explicit error logging when a player is saved without a room.
+- Why:
+  - Missing/null room data left players in an invalid "nowhere" state and could lead to save failures with unclear diagnostics.
+- Impact:
+  - Players with missing/null `room` values are now recovered during hydrate instead of remaining roomless.
+  - Operators now receive an explicit error log for this data corruption case.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #31
+  - Tests: `test/unit/PlayerHydrateRoom.js` (`Player hydrate room recovery` coverage)
+- Timestamp: 2026.02.17 17:15
+
 ### EffectFactory.get recursion fix
 
 - Summary:
