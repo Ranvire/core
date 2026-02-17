@@ -68,6 +68,23 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/EffectList.js` (`paused immediately at elapsed zero` regression coverage)
 - Timestamp: 2026.02.17 13:31
 
+### EffectRemoved event payload fix
+
+- Summary:
+  - Updated `EffectList.remove` to emit the removed effect instance as payload on `Character#effectRemoved`.
+- Why:
+  - Listeners previously received no effect argument, making it impossible to identify which effect was removed from the event alone.
+- Impact:
+  - `effectRemoved` listeners now receive the removed `Effect` instance (`(effect)`), enabling deterministic downstream handling.
+  - Event name and removal flow remain unchanged.
+- Migration/Action:
+  - If downstream listeners ignored arguments, no action is required.
+  - If downstream code depended on missing payload, update handlers to accept/use the effect argument.
+- References:
+  - Issue: #58
+  - Tests: `test/unit/EffectList.js` (`effectRemoved payload` regression coverage)
+- Timestamp: 2026.02.17 13:42
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
