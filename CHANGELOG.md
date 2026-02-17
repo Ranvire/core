@@ -105,6 +105,23 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/RoomDoors.js` (`Room door state normalization` coverage)
 - Timestamp: 2026.02.17 14:03
 
+### AreaFloor signed-coordinate map storage
+
+- Summary:
+  - Replaced `AreaFloor` array-backed coordinate storage with nested `Map<number, Map<number, Room>>` storage.
+  - Preserved `addRoom/getRoom/removeRoom` behavior and low/high bound tracking.
+- Why:
+  - Array/object-key behavior for signed coordinates was implementation-fragile and semantically ambiguous for sparse/negative indices.
+- Impact:
+  - Signed coordinate lookups are now backed by explicit map semantics instead of array property behavior.
+  - Public runtime behavior of room add/get/remove remains consistent.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #44
+  - Tests: `test/unit/AreaFloor.js` (`uses Map-backed coordinate storage`, signed coordinate coverage)
+- Timestamp: 2026.02.17 14:18
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
