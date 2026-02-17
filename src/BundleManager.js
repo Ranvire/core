@@ -422,8 +422,19 @@ class BundleManager {
     try {
       quests = await loader.fetchAll();
     } catch (err) {
-      Logger.error(`\t\t\tError loading quests [${bundle}:${areaName}]`, err);
-      throw new Error(`Error loading quests [${bundle}:${areaName}]`, { cause: err });
+      const context = `Error loading quests [${bundle}:${areaName}]`;
+      let message = context;
+
+      if (err && err.code === 'ENOENT') {
+        const questsPath = this._getAreaQuestsPath(bundle, areaName);
+        message =
+          `${context}. Missing required quests.yml at [${questsPath}]. ` +
+          'quests.yml is required for each area. ' +
+          'For areas with no quests, create quests.yml containing [].';
+      }
+
+      Logger.error(`\t\t\t${message}`, err);
+      throw new Error(message, { cause: err });
     }
 
     return quests.map(quest => {
@@ -735,6 +746,10 @@ class BundleManager {
    */
   _getAreaScriptPath(bundle, areaName) {
     return `${this.bundlesPath}/${bundle}/areas/${areaName}/scripts`;
+  }
+
+  _getAreaQuestsPath(bundle, areaName) {
+    return path.join(this.bundlesPath, bundle, 'areas', areaName, 'quests.yml');
   }
 
   _registerOrThrow(registry, key, bundle, source = null) {
