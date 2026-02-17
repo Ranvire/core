@@ -85,6 +85,26 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/EffectList.js` (`effectRemoved payload` regression coverage)
 - Timestamp: 2026.02.17 13:42
 
+### Room door state normalization
+
+- Summary:
+  - Normalized room door runtime state so `locked` and `closed` are canonical booleans with defaults of `false` when omitted in area data.
+  - Updated `Room.isDoorLocked` to always return `boolean`.
+  - Tightened `types/Room.d.ts` to match runtime (`RoomDoor.locked: boolean`, `RoomDoor.closed: boolean`, `isDoorLocked(): boolean`).
+- Why:
+  - Door config previously allowed tri-state lock behavior (`true | false | undefined`) when `locked`/`closed` keys were missing, creating ambiguous data-dependent behavior.
+- Impact:
+  - Missing `locked`/`closed` in room door definitions now behaves as `false` at runtime.
+  - Downstream door-lock checks are now deterministic and type-safe.
+  - Extra door metadata keys are preserved.
+- Migration/Action:
+  - If downstream code relied on `undefined` from `isDoorLocked`, update logic to use boolean semantics.
+  - Existing door data does not require changes.
+- References:
+  - Issue: #42
+  - Tests: `test/unit/RoomDoors.js` (`Room door state normalization` coverage)
+- Timestamp: 2026.02.17 14:03
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
