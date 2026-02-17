@@ -32,7 +32,17 @@ class CommandManager {
    * @param {Command}
    */
   remove(command) {
-    this.commands.delete(command.name);
+    if (this.commands.get(command.name) === command) {
+      this.commands.delete(command.name);
+    }
+
+    if (command.aliases) {
+      command.aliases.forEach(alias => {
+        if (this.commands.get(alias) === command) {
+          this.commands.delete(alias);
+        }
+      });
+    }
   }
 
   /**
