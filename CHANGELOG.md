@@ -209,6 +209,22 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/Attribute.js` (`#constructor` delta invariant coverage)
 - Timestamp: 2026.02.17 16:27
 
+### Attribute constructor strict numeric validation
+
+- Summary:
+  - Replaced permissive `isNaN` constructor validation in `Attribute` with strict finite-number checks for `base` and `delta`.
+- Why:
+  - Numeric strings and non-finite values were previously accepted due to coercive `isNaN` behavior, weakening type safety and relying on implicit arithmetic coercion.
+- Impact:
+  - Constructor now rejects numeric strings (for example `'10'`, `'2'`), `NaN`, and `Infinity` for `base`/`delta`.
+  - Finite numeric inputs continue to work as before.
+- Migration/Action:
+  - Ensure call sites pass real finite numbers to `new Attribute(name, base, delta, ...)`.
+- References:
+  - Issue: #64
+  - Tests: `test/unit/Attribute.js` (`#constructor` strict validation coverage)
+- Timestamp: 2026.02.17 16:32
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
