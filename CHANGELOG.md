@@ -192,6 +192,23 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/AttributeFactory.js` (`#create metadata` coverage)
 - Timestamp: 2026.02.17 16:22
 
+### Attribute constructor delta invariant enforcement
+
+- Summary:
+  - Updated `Attribute` constructor to enforce the runtime delta invariant (`delta <= 0`) at construction time.
+- Why:
+  - Constructor previously accepted positive deltas, allowing current attribute values to exceed max via direct construction/hydration paths.
+- Impact:
+  - Positive constructor `delta` inputs are now normalized to `0`.
+  - Negative deltas remain unchanged.
+  - Constructor behavior now matches existing mutator invariant semantics.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #65
+  - Tests: `test/unit/Attribute.js` (`#constructor` delta invariant coverage)
+- Timestamp: 2026.02.17 16:27
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
