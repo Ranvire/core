@@ -65,8 +65,8 @@ class EffectFactory {
       throw new Error(`No valid entry definition found for effect ${id}.`);
     }
     let def = Object.assign({}, entry.definition);
-    def.config = Object.assign(def.config, config);
-    def.state = Object.assign(def.state || {}, state);
+    def.config = Object.assign({}, entry.definition.config || {}, config);
+    def.state = Object.assign({}, entry.definition.state || {}, state);
     const effect = new Effect(id, def);
     entry.eventManager.attach(effect);
 
