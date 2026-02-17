@@ -34,7 +34,7 @@ class Attribute {
 
     this.name = name;
     this.base = base;
-    this.delta = delta;
+    this.delta = Math.min(delta, 0);
     this.formula = formula;
     this.metadata = metadata;
   }
