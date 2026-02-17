@@ -4,6 +4,38 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
 
 ## Unreleased
 
+### EffectFactory.get recursion fix
+
+- Summary:
+  - Fixed `EffectFactory#get` so it returns the registered effect definition (or `null`) instead of recursively calling itself.
+- Why:
+  - The prior implementation caused infinite recursion and `RangeError: Maximum call stack size exceeded` on any `get` call.
+- Impact:
+  - Consumers calling `EffectFactory#get` now receive deterministic lookup behavior instead of a runtime stack overflow.
+  - No entrypoint or export-surface changes.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #49
+  - Test: `test/unit/EffectFactory.js` (`#get` regression coverage)
+- Timestamp: 2026.02.17 12:54
+
+### EffectFactory.create override isolation fix
+
+- Summary:
+  - Fixed `EffectFactory#create` to clone default `config` and `state` before applying per-instance overrides.
+- Why:
+  - The previous merge logic mutated shared definition objects, causing one instance's overrides to leak into subsequent instances.
+- Impact:
+  - Per-instance overrides no longer affect future instances.
+  - Existing APIs remain unchanged.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #51
+  - Tests: `test/unit/EffectFactory.js` (`#create` regression coverage for config/state leakage)
+- Timestamp: 2026.02.17 12:54
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
