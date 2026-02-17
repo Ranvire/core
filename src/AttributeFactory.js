@@ -67,7 +67,8 @@ class AttributeFactory {
     }
 
     const def = this.attributes.get(name);
-    return new Attribute(name, base || def.base, delta, def.formula, cloneMetadata(def.metadata));
+    const resolvedBase = (base === null || base === undefined) ? def.base : base;
+    return new Attribute(name, resolvedBase, delta, def.formula, cloneMetadata(def.metadata));
   }
 
   /**
