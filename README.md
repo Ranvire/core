@@ -14,6 +14,18 @@ Install dependencies with `npm ci` and run tests with `npm test`.
 
 CI (GitHub Actions) runs on Node 22, installs with `npm ci`, runs `npm test`, and publishes a non-blocking `npm audit` report.
 
+## Bundle Area Quest Contract
+
+Each bundle area must include `areas/<area>/quests.yml`.
+
+If an area has no quests, keep the file and set its contents to:
+
+```yaml
+[]
+```
+
+`BundleManager` treats a missing `quests.yml` as a load error by contract.
+
 ## Version lineage and compatibility
 
 Rantamuta `v1.0.0` is a maintenance fork of RanvierMUD, cut at RanvierMUD `v3.0.6`.

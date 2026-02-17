@@ -98,7 +98,7 @@ describe('BundleManager', () => {
             );
             assert.match(
               error.message,
-              /example-bundle\/areas\/example-area\/quests\.yml/
+              /example-bundle[\\/]+areas[\\/]+example-area[\\/]+quests\.yml/
             );
             assert.strictEqual(error.cause, missingErr);
             return true;
