@@ -27,7 +27,7 @@ class AreaFloor {
   constructor(z) {
     this.z = z;
     this.lowX = this.highX = this.lowY = this.highY = 0;
-    this.map = [];
+    this.map = new Map();
   }
 
   addRoom(x, y, room) {
@@ -51,26 +51,30 @@ class AreaFloor {
       this.highY = y;
     }
 
-    if (!Array.isArray(this.map[x])) {
-      this.map[x] = [];
+    if (!this.map.has(x)) {
+      this.map.set(x, new Map());
     }
 
-    this.map[x][y] = room;
+    this.map.get(x).set(y, room);
   }
 
   /**
    * @return {Room|boolean}
    */
   getRoom(x, y) {
-    return this.map[x] && this.map[x][y];
+    return this.map.has(x) ? this.map.get(x).get(y) : undefined;
   }
 
   removeRoom(x, y) {
-    if (!this.map[x] || !this.map[x][y]) {
+    if (!this.map.has(x) || !this.map.get(x).has(y)) {
       throw new Error('AreaFloor.removeRoom: trying to remove non-existent room');
     }
 
-    this.map[x][y] = undefined;
+    const row = this.map.get(x);
+    row.delete(y);
+    if (!row.size) {
+      this.map.delete(x);
+    }
   }
 }
 
