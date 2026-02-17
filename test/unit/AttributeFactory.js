@@ -4,6 +4,31 @@ const { AttributeFormula } = require('../../src/Attribute');
 const AttributeFactory = require('../../src/AttributeFactory');
 
 describe('AttributeFactory', () => {
+  describe('#create metadata', () => {
+    it('does not share metadata references between created instances', () => {
+      const factory = new AttributeFactory();
+      factory.add('health', 100, null, { tags: { category: 'core' } });
+
+      const a = factory.create('health');
+      const b = factory.create('health');
+
+      a.metadata.tags.category = 'modified';
+
+      assert.strictEqual(b.metadata.tags.category, 'core');
+    });
+
+    it('does not mutate stored definition metadata when runtime metadata changes', () => {
+      const factory = new AttributeFactory();
+      factory.add('health', 100, null, { tags: { category: 'core' } });
+
+      const runtime = factory.create('health');
+      runtime.metadata.tags.category = 'modified';
+
+      const def = factory.get('health');
+      assert.strictEqual(def.metadata.tags.category, 'core');
+    });
+  });
+
   describe('#validateAttributes', () => {
     function makeFactory() {
       return new AttributeFactory();

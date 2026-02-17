@@ -176,6 +176,22 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/AttributeFactory.js` (`validateAttributes` missing-dependency and cycle coverage)
 - Timestamp: 2026.02.17 16:16
 
+### AttributeFactory metadata isolation on create
+
+- Summary:
+  - Updated `AttributeFactory.create()` to clone definition metadata per created `Attribute` instance.
+- Why:
+  - Runtime attributes previously shared the same metadata object reference, causing instance-to-instance and instance-to-definition mutation leakage.
+- Impact:
+  - Mutating `attribute.metadata` at runtime no longer affects other created instances.
+  - Runtime metadata mutation no longer mutates stored factory definition metadata.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #66
+  - Tests: `test/unit/AttributeFactory.js` (`#create metadata` coverage)
+- Timestamp: 2026.02.17 16:22
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:

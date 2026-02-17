@@ -2,6 +2,18 @@
 
 const { Attribute, AttributeFormula } = require('./Attribute');
 
+function cloneMetadata(metadata) {
+  if (!metadata || typeof metadata !== 'object') {
+    return {};
+  }
+
+  if (typeof structuredClone === 'function') {
+    return structuredClone(metadata);
+  }
+
+  return JSON.parse(JSON.stringify(metadata));
+}
+
 /**
  * @property {Map} attributes
  */
@@ -55,7 +67,7 @@ class AttributeFactory {
     }
 
     const def = this.attributes.get(name);
-    return new Attribute(name, base || def.base, delta, def.formula, def.metadata);
+    return new Attribute(name, base || def.base, delta, def.formula, cloneMetadata(def.metadata));
   }
 
   /**
