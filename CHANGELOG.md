@@ -36,6 +36,22 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/EffectFactory.js` (`#create` regression coverage for config/state leakage)
 - Timestamp: 2026.02.17 12:54
 
+### EffectList paused-damage gating fix
+
+- Summary:
+  - Fixed `EffectList` damage evaluation paths to skip paused effects for incoming and outgoing damage modifier application.
+- Why:
+  - Paused effects were correctly skipped in other paths, but damage evaluation still applied paused modifiers.
+- Impact:
+  - Paused effects no longer alter incoming or outgoing damage while paused.
+  - Behavior for active, unpaused effects is unchanged.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #55
+  - Tests: `test/unit/EffectList.js` (`paused effects` regression coverage)
+- Timestamp: 2026.02.17 13:13
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
