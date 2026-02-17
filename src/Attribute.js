@@ -22,10 +22,10 @@ class Attribute {
    * @param {object} metadata={}
    */
   constructor(name, base, delta = 0, formula = null, metadata = {}) {
-    if (isNaN(base)) { 
+    if (!Number.isFinite(base)) {
       throw new TypeError(`Base attribute must be a number, got ${base}.`); 
     }
-    if (isNaN(delta)) {
+    if (!Number.isFinite(delta)) {
       throw new TypeError(`Attribute delta must be a number, got ${delta}.`);
     }
     if (formula && !(formula instanceof AttributeFormula)) {
