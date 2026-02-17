@@ -187,6 +187,9 @@ class EffectList {
     let attrValue = attr.base || 0;
 
     for (const effect of this.effects) {
+      if (!effect.active) {
+        continue;
+      }
       if (effect.paused) {
         continue;
       }
@@ -205,6 +208,9 @@ class EffectList {
     this.validateEffects();
 
     for (const effect of this.effects) {
+      if (!effect.active) {
+        continue;
+      }
       currentAmount = effect.modifyIncomingDamage(damage, currentAmount);
     }
 
@@ -222,6 +228,9 @@ class EffectList {
     this.validateEffects();
 
     for (const effect of this.effects) {
+      if (!effect.active) {
+        continue;
+      }
       currentAmount = effect.modifyOutgoingDamage(damage, currentAmount);
     }
 
