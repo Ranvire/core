@@ -2,6 +2,18 @@ const assert = require('assert');
 const { Attribute } = require('../../src/Attribute');
 
 describe('Basic Attribute',  () => {
+  describe('#constructor', () => {
+    it('should clamp positive delta to 0', () => {
+      const attr = new Attribute('test', 10, 5);
+      assert.equal(attr.delta, 0);
+    });
+
+    it('should preserve negative delta', () => {
+      const attr = new Attribute('test', 10, -5);
+      assert.equal(attr.delta, -5);
+    });
+  });
+
   let attribute = null;
   const base = 10;
   beforeEach(() => {
