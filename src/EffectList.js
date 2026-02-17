@@ -211,6 +211,9 @@ class EffectList {
       if (!effect.active) {
         continue;
       }
+      if (effect.paused) {
+        continue;
+      }
       currentAmount = effect.modifyIncomingDamage(damage, currentAmount);
     }
 
@@ -229,6 +232,9 @@ class EffectList {
 
     for (const effect of this.effects) {
       if (!effect.active) {
+        continue;
+      }
+      if (effect.paused) {
         continue;
       }
       currentAmount = effect.modifyOutgoingDamage(damage, currentAmount);

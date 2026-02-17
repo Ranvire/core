@@ -47,4 +47,35 @@ describe('EffectList', () => {
       assert.strictEqual(list.evaluateOutgoingDamage({}, 10), 10);
     });
   });
+
+  describe('paused effects', () => {
+    it('does not apply damage modifiers when effect is paused', () => {
+      const factory = new EffectFactory();
+      factory.add('paused-damage', {
+        config: { type: 'paused-damage' },
+        modifiers: {
+          incomingDamage: (_damage, current) => current + 7,
+          outgoingDamage: (_damage, current) => current + 9,
+        },
+        listeners: {},
+      });
+
+      const list = new EffectList(new EventEmitter(), []);
+      const effect = factory.create('paused-damage');
+
+      const realNow = Date.now;
+      let now = 1000;
+      Date.now = () => now;
+      try {
+        list.add(effect);
+        now = 1010;
+        effect.pause();
+      } finally {
+        Date.now = realNow;
+      }
+
+      assert.strictEqual(list.evaluateIncomingDamage({}, 10), 10);
+      assert.strictEqual(list.evaluateOutgoingDamage({}, 10), 10);
+    });
+  });
 });
