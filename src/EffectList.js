@@ -66,7 +66,7 @@ class EffectList {
     }
 
     for (const effect of this.effects) {
-      if (effect.paused) {
+      if (effect.paused !== null) {
         continue;
       }
 
@@ -190,7 +190,7 @@ class EffectList {
       if (!effect.active) {
         continue;
       }
-      if (effect.paused) {
+      if (effect.paused !== null) {
         continue;
       }
       attrValue = effect.modifyAttribute(attrName, attrValue);
@@ -211,7 +211,7 @@ class EffectList {
       if (!effect.active) {
         continue;
       }
-      if (effect.paused) {
+      if (effect.paused !== null) {
         continue;
       }
       currentAmount = effect.modifyIncomingDamage(damage, currentAmount);
@@ -234,7 +234,7 @@ class EffectList {
       if (!effect.active) {
         continue;
       }
-      if (effect.paused) {
+      if (effect.paused !== null) {
         continue;
       }
       currentAmount = effect.modifyOutgoingDamage(damage, currentAmount);

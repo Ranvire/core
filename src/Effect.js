@@ -53,7 +53,7 @@ class Effect extends EventEmitter {
     }, def.config);
 
     this.startedAt = 0;
-    this.paused = 0;
+    this.paused = null;
     this.modifiers = Object.assign({
       attributes: {},
       incomingDamage: (damage, current) => current,
@@ -113,7 +113,7 @@ class Effect extends EventEmitter {
       return null;
     }
 
-    return this.paused || (Date.now() - this.startedAt);
+    return this.paused !== null ? this.paused : (Date.now() - this.startedAt);
   }
 
   /**
