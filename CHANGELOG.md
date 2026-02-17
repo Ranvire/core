@@ -4,6 +4,24 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
 
 ## Unreleased
 
+### Missing quests.yml diagnostics hardening
+
+- Summary:
+  - Improved `BundleManager#loadQuests` error messaging for missing `quests.yml` files by including contract guidance and the expected file path.
+  - Added README guidance that questless areas must still include `quests.yml` containing `[]`.
+- Why:
+  - Startup failures from missing `quests.yml` were fail-fast but not sufficiently actionable for maintainers.
+- Impact:
+  - Boot behavior remains fail-fast for missing quest files.
+  - Operators now get explicit remediation instructions in the thrown/logged error for `ENOENT` quest-load failures.
+- Migration/Action:
+  - Ensure every area includes `areas/<area>/quests.yml`.
+  - For questless areas, create `quests.yml` with `[]`.
+- References:
+  - Issue: #77
+  - Tests: `test/unit/BundleManager.js` (`adds actionable guidance when quests.yml is missing`)
+- Timestamp: 2026.02.17 17:20
+
 ### Player missing-room hydrate recovery
 
 - Summary:
