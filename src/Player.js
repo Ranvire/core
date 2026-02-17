@@ -205,7 +205,12 @@ class Player extends Character {
       this.equipment = new Map();
     }
 
-    if (typeof this.room === 'string') {
+    if (this.room === null) {
+      Logger.error(`ERROR: Player ${this.name} was saved without a room.`);
+      const room = state.AreaManager.getPlaceholderArea().getRoomById('placeholder');
+      this.room = room;
+      this.moveTo(room);
+    } else if (typeof this.room === 'string') {
       let room = state.RoomManager.getRoom(this.room);
       if (!room) {
         Logger.error(`ERROR: Player ${this.name} was saved to invalid room ${this.room}.`);
