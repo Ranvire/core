@@ -29,6 +29,32 @@ describe('AttributeFactory', () => {
     });
   });
 
+  describe('#create base override', () => {
+    it('respects an explicit base override of 0', () => {
+      const factory = new AttributeFactory();
+      factory.add('health', 100);
+
+      const attr = factory.create('health', 0);
+      assert.strictEqual(attr.base, 0);
+    });
+
+    it('uses definition base when base override is null', () => {
+      const factory = new AttributeFactory();
+      factory.add('health', 100);
+
+      const attr = factory.create('health', null);
+      assert.strictEqual(attr.base, 100);
+    });
+
+    it('uses definition base when base override is undefined', () => {
+      const factory = new AttributeFactory();
+      factory.add('health', 100);
+
+      const attr = factory.create('health', undefined);
+      assert.strictEqual(attr.base, 100);
+    });
+  });
+
   describe('#validateAttributes', () => {
     function makeFactory() {
       return new AttributeFactory();

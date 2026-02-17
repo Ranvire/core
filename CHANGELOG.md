@@ -225,6 +225,22 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/Attribute.js` (`#constructor` strict validation coverage)
 - Timestamp: 2026.02.17 16:32
 
+### AttributeFactory.create explicit zero-base override fix
+
+- Summary:
+  - Fixed `AttributeFactory.create()` to respect explicit `base = 0` overrides instead of falling back to definition defaults.
+- Why:
+  - `create()` previously used `base || def.base`, which treated `0` as missing and produced incorrect base values.
+- Impact:
+  - `create(name, 0)` now correctly produces attributes with base `0`.
+  - `null`/`undefined` base inputs still fall back to the definition base.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #63
+  - Tests: `test/unit/AttributeFactory.js` (`#create base override` coverage)
+- Timestamp: 2026.02.17 16:40
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
