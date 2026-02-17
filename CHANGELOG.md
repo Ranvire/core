@@ -159,6 +159,23 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/CharacterAttributeUpdate.js` (all four attribute mutation paths)
 - Timestamp: 2026.02.17 15:53
 
+### AttributeFactory missing dependency fail-fast validation
+
+- Summary:
+  - Extended `AttributeFactory.validateAttributes()` to fail at startup when formulas require undefined attributes.
+  - Added aggregated missing-dependency reporting in a single error message.
+- Why:
+  - Validation previously checked only circular references, allowing invalid formula dependency graphs to boot and fail later at runtime.
+- Impact:
+  - Invalid attribute schemas with missing formula dependencies now fail fast during validation.
+  - Circular dependency detection behavior remains intact.
+- Migration/Action:
+  - Ensure all `formula.requires` entries reference defined attributes before startup validation.
+- References:
+  - Issue: #68
+  - Tests: `test/unit/AttributeFactory.js` (`validateAttributes` missing-dependency and cycle coverage)
+- Timestamp: 2026.02.17 16:16
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
