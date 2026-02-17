@@ -84,6 +84,14 @@ class EntityFactory {
    * @return {Item|Npc|Room|Area}
    */
   clone(entity) {
+    if (this.create === EntityFactory.prototype.create) {
+      throw new TypeError(`${this.constructor.name} must implement create() to support clone()`);
+    }
+
+    if (!entity || !('entityReference' in entity)) {
+      throw new TypeError('clone(entity) requires an entity with entityReference');
+    }
+
     return this.create(entity.area, entity.entityReference);
   }
 }

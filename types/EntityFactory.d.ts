@@ -42,9 +42,14 @@ declare class EntityFactory {
      * @return {type}
      */
     createByType<T>(area: Area, entityRef: string, Type: Class<T>): T;
+    /**
+     * Create a concrete entity instance.
+     * Must be implemented by subclasses to support base clone() behavior.
+     */
     create(): void;
     /**
      * Clone an existing entity.
+     * Base clone() assumes subclass create(area, entityRef) unless clone() is overridden.
      * @param {Item|Npc|Room|Area} entity
      * @return {Item|Npc|Room|Area}
      */
