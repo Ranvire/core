@@ -109,4 +109,28 @@ describe('EffectList', () => {
       assert.strictEqual(list.evaluateOutgoingDamage({}, 10), 10);
     });
   });
+
+  describe('effectRemoved payload', () => {
+    it('emits removed effect instance on target effectRemoved event', () => {
+      const factory = new EffectFactory();
+      factory.add('removable', {
+        config: { type: 'removable' },
+        listeners: {},
+      });
+
+      const target = new EventEmitter();
+      const list = new EffectList(target, []);
+      const effect = factory.create('removable');
+
+      let received;
+      target.on('effectRemoved', arg => {
+        received = arg;
+      });
+
+      list.add(effect);
+      list.remove(effect);
+
+      assert.strictEqual(received, effect);
+    });
+  });
 });
