@@ -4,6 +4,18 @@ const GameEntity = require('./GameEntity');
 const Logger = require('./Logger');
 
 /**
+ * Normalize runtime door state to canonical booleans while preserving extra keys.
+ * @param {*} door
+ * @return {{lockedBy?: string, locked: boolean, closed: boolean}}
+ */
+function normalizeDoor(door) {
+  const normalized = Object.assign({}, door && typeof door === 'object' ? door : {});
+  normalized.locked = normalized.locked === true;
+  normalized.closed = normalized.closed === true;
+  return normalized;
+}
+
+/**
  * @property {Area}          area         Area room is in
  * @property {{x: number, y: number, z: number}} [coordinates] Defined in yml with array [x, y, z]. Retrieved with coordinates.x, coordinates.y, ...
  * @property {Array<number>} defaultItems Default list of item ids that should load in this room
@@ -47,8 +59,11 @@ class Room extends GameEntity {
     this.exits = def.exits || [];
     this.id = def.id;
     this.title = def.title;
-    // create by-val copies of the doors config so the lock/unlock don't accidentally modify the original definition
-    this.doors = new Map(Object.entries(JSON.parse(JSON.stringify(def.doors || {}))));
+    // create by-val copies of the doors config so runtime lock state doesn't modify original definitions
+    const doors = JSON.parse(JSON.stringify(def.doors || {}));
+    this.doors = new Map(Object.entries(doors).map(([roomRef, door]) => {
+      return [roomRef, normalizeDoor(door)];
+    }));
     this.defaultDoors = def.doors;
 
     this.items = new Set();
@@ -228,7 +243,7 @@ class Room extends GameEntity {
 
   /**
    * @param {Room} fromRoom
-   * @return {{lockedBy: EntityReference, locked: boolean, closed: boolean}}
+   * @return {{lockedBy?: EntityReference, locked: boolean, closed: boolean}}
    */
   getDoor(fromRoom) {
     if (!fromRoom) {
@@ -248,7 +263,7 @@ class Room extends GameEntity {
       return false;
     }
 
-    return door.locked;
+    return door.locked === true;
   }
 
   /**
