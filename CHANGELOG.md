@@ -241,6 +241,23 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/AttributeFactory.js` (`#create base override` coverage)
 - Timestamp: 2026.02.17 16:40
 
+### CommandManager alias cleanup on remove
+
+- Summary:
+  - Fixed `CommandManager.remove(command)` to remove alias keys registered for the command, not just `command.name`.
+  - Added safe guards so keys are removed only if they still resolve to the same command instance.
+- Why:
+  - Removing only the canonical command name left stale aliases registered and still resolvable.
+- Impact:
+  - Removed commands no longer remain reachable through stale aliases.
+  - Alias keys reassigned to another command are preserved.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #39
+  - Tests: `test/unit/CommandManager.js` (`remove` alias cleanup coverage)
+- Timestamp: 2026.02.17 16:44
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
