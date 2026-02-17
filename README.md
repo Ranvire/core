@@ -109,6 +109,10 @@ These items are intentionally **post-1.0**. They remain within the Rantamuta ste
 
 v1.1 is complete and releasable when strict mode can be toggled from config, duplicates across all listed bundle-loaded map registries fail fast with the required error details in strict mode, non-strict mode remains behaviorally unchanged, and automated tests cover both paths.
 
+## 1.0.1 Confugured Bundle Load Order
+
+* [x] `BundleManager.loadBundles()` Bundle load order is determined by the `bundle` array in `ranvier.json` or `ranvier.conf.js`
+
 ## 1.0 Maintenance Checklist
 
 This checklist is scoped to the `Rantamuta/core` engine only. It focuses on a **pure maintenance upgrade**: modern Node.js compatibility, CI, dependency hygiene, and sharp-edge fixes. There is no redesign, no API-breaking changes, and no assumptions about `ranviermud`, datasources, or bundles.
