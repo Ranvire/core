@@ -12,6 +12,24 @@ describe('Basic Attribute',  () => {
       const attr = new Attribute('test', 10, -5);
       assert.equal(attr.delta, -5);
     });
+
+    it('should reject numeric string base values', () => {
+      assert.throws(() => new Attribute('test', '10'), /Base attribute must be a number/);
+    });
+
+    it('should reject numeric string delta values', () => {
+      assert.throws(() => new Attribute('test', 10, '2'), /Attribute delta must be a number/);
+    });
+
+    it('should reject non-finite base values', () => {
+      assert.throws(() => new Attribute('test', Infinity), /Base attribute must be a number/);
+      assert.throws(() => new Attribute('test', NaN), /Base attribute must be a number/);
+    });
+
+    it('should reject non-finite delta values', () => {
+      assert.throws(() => new Attribute('test', 10, Infinity), /Attribute delta must be a number/);
+      assert.throws(() => new Attribute('test', 10, NaN), /Attribute delta must be a number/);
+    });
   });
 
   let attribute = null;
