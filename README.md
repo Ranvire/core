@@ -193,5 +193,7 @@ The tasks in this checklist describe the work required to bring the RanvierMUD c
 * In this repo run npm install then `npm link` (might need `sudo`)
 * Go back to the other repo and run `npm link ranvier`
 
+Downstream repos commonly keep the legacy dependency key `ranvier` mapped to `github:Rantamuta/core` for compatibility, even though this repository's package metadata name is `rantamuta-core`.
+
 Now any changes you make in this repo will automatically be available inside your ranvier project. Any time you do `npm
 install` or `npm update` in your ranviermud repository you'll have to re-run `npm link ranvier` to re-establish the link.
