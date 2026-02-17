@@ -52,6 +52,22 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
   - Tests: `test/unit/EffectList.js` (`paused effects` regression coverage)
 - Timestamp: 2026.02.17 13:13
 
+### Effect pause sentinel zero fix
+
+- Summary:
+  - Changed effect pause sentinel handling to use `null` instead of truthy/falsy checks, and updated pause gates to explicit null checks.
+- Why:
+  - Pausing an effect immediately after activation can produce elapsed `0`; truthy pause checks treated that as unpaused and allowed modifiers/events to continue.
+- Impact:
+  - Effects paused at elapsed `0` are now reliably treated as paused.
+  - `Effect.elapsed` now correctly remains `0` while such effects are paused.
+- Migration/Action:
+  - None.
+- References:
+  - Issue: #57
+  - Tests: `test/unit/EffectList.js` (`paused immediately at elapsed zero` regression coverage)
+- Timestamp: 2026.02.17 13:31
+
 ### Strict mode duplicate registration enforcement
 
 - Summary:
