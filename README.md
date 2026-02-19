@@ -90,6 +90,7 @@ These items are intentionally **post-1.0**. They remain within the Rantamuta ste
 * [ ] Add unit tests for `EntityLoader` method gating and error messages.
 * [ ] Add tests for `BundleManager.loadBundles(distribute=false)` and `_getLoader` compatibility.
 * [ ] Add tests for `EventManager.attach` / `detach` semantics and the `removeAllListeners` warning edge.
+* [ ] Harden contract and tests for `server-events`; see [proposal](./docs/proposals/HARDEN_SERVER_EVENTS_CONTRACT_AND_TESTS.md).
 * [ ] Consolidate bundle path construction in `BundleManager` to reduce string-concat drift.
 * [ ] Document and test async vs sync expectations in loader code paths before changing behavior.
 
