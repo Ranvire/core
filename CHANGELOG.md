@@ -4,6 +4,20 @@ All entries follow `docs/CHANGELOG_POLICY.md`.
 
 ## Unreleased
 
+### Channels architecture documentation
+
+- Summary:
+  - Added `docs/CHANNELS.md`, a dedicated engine-level reference for channels covering runtime lifecycle, audience strategies, API/types, load-time integration, and downstream extension points.
+- Why:
+  - Channels are a foundational communication primitive and needed consolidated, in-repo maintainer/operator documentation for behavior and interface contracts.
+- Impact:
+  - Documentation-only change; runtime behavior and public entrypoint/export strategy are unchanged.
+- Migration/Action:
+  - None.
+- References:
+  - Docs: `docs/CHANNELS.md`
+- Timestamp: 2026.02.28 22:32
+
 ### Missing quests.yml diagnostics hardening
 
 - Summary:
